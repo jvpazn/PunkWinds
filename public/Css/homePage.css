@@ -1,0 +1,54 @@
+@keyframes girar {
+    from {
+        transform: rotate(0deg); 
+    }
+    to {
+        transform: rotate(360deg); 
+    }
+}
+
+body{
+        margin: 0;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 7fr 1fr;
+        grid-template-rows: 80px 10fr 1fr 0.5fr;
+        grid-template-areas:
+            "h h h"
+            "e m d"
+            "e n d"
+            "e f d";
+    }
+
+
+header {
+    background-color: #750da2;
+    grid-area: h;
+    display: flex;
+    height: 120px;
+    width: 100%;
+    justify-content: left;
+}
+
+#imagensTopoSite {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+
+#imagensTopoSite img {
+    height: 80%;
+    margin: 3px;
+    width: auto;
+    animation: girar 4s linear infinite;
+}
+header h1 {
+    color: white;
+    text-align: center;
+    align-self: center;
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 80px;
+}
+
