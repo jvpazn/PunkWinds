@@ -8,16 +8,15 @@
 }
 
 body{
-        margin: 0;
-        height: 100vh;
-        display: grid;
-        grid-template-columns: 1fr 7fr 1fr;
-        grid-template-rows: 80px 10fr 1fr 0.5fr;
-        grid-template-areas:
-            "h h h"
-            "e m d"
-            "e n d"
-            "e f d";
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 120px 10fr 0.5fr;
+    grid-template-areas:
+        "h"
+        "m"
+        "f";
+    background-color: #4a0867;
     }
 
 
@@ -50,5 +49,88 @@ header h1 {
     align-self: center;
     font-family: 'Sedgwick Ave Display', cursive;
     font-size: 80px;
+}
+
+#TopoSiteDir{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    gap: 20px;
+    margin-right: 10px;
+}
+
+#TopoSiteDir img{
+    height: 50px;
+    width: 50px;
+    margin: 0;
+}
+
+#Content{
+    margin-top: 20px;
+    grid-area: m;
+    display: flex;
+    flex-direction: column;
+}
+
+#Usuario{
+    height: 50px;
+    width: auto;
+    display: flex;
+    margin: 0;
+    flex-direction: row;
+    align-items: center; 
+    gap: 10px;
+}
+
+#Usuario p {
+    margin: 0; 
+    font-size: 24px;
+    color: white;
+    font-family: 'Sedgwick Ave Display', cursive;
+
+}
+
+
+
+
+#FirstImgSet{
+    width: 100%;
+    height: 400px;
+    justify-content: center;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    background-color: rgba(0, 0, 0, 0.2)
+}
+
+.imgPrice{
+    height: 400px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.imgPrice img{
+    height: 380px;
+    width: 520px;
+    margin: 0;
+
+}
+
+.PriceName{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+}
+
+.PriceName p{
+    margin: 0;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
