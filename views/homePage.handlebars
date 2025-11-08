@@ -1,24 +1,64 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" href="/img/favicon.png" />
-    <link rel="Stylesheet" href="css/homePage.css" />
-    <title>PunkWinds</title>
-  </head>
-  <body>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link rel="icon" href="/img/favicon.png">
+    <link rel="Stylesheet" href="css/homePage.css">
+    <title>Home</title>
+</head>
+<body>
     <header>
-      <div id="imagensTopoSite">
-        <img src="/img/favicon.png" />
-      </div>
-      <h1>PunkWinds</h1>
-      {{#if nome}}
-        <a href="/perfil">{{nome}}</a>
-      {{else}}
-        <a href="/cadastro">Template (Registrar)</a>
-      {{/if}}
+        <div id="imagensTopoSite">
+            <img src="/img/favicon.png">
+        </div>
+        <h1>PunkWinds</h1>
+            <div id="TopoSiteDir">
+                <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+                <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+                {{#if nome}}
+                <div id="Usuario" onclick="window.open('/perfil', '_self')" style="border: 2px solid green; padding-left: 2px;">
+                    <p>{{nome}}</p>
+                    <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+                </div>
+                {{else}}
+                <div id="Usuario" onclick="window.open('/cadastro', '_self')" style="border: 2px solid red; padding-left: 2px;">
+                    <p>Logar</p>
+                    <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+                </div>
+                {{/if}}
+                
+            </div>
     </header>
-  </body>
+
+<main id="Content">
+    <div id="FirstImgSet">
+        <div class="imgPrice">
+            <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+            <div class="PriceName">
+                <p>Jojolands: All-star battle</p>
+                <p>R$ 5,00</p>
+            </div>
+        </div>
+
+        <div class="imgPrice">
+            <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+            <div class="PriceName">
+                <p>My lovely Furmate</p>
+                <p>R$ 5,00</p>
+            </div>
+        </div>
+
+        <div class="imgPrice">
+            <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+            <div class="PriceName">
+                <p>Mob psycho 100 showdown</p>
+                <p>R$ 5,00</p>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+</body>
 </html>
