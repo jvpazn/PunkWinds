@@ -16,14 +16,14 @@
                 <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
                 <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
                 {{#if nome}}
-                <div id="Usuario" onclick="window.open('/perfil', '_self')" style="border: 2px solid green; padding-left: 2px;">
+                <div id="Usuario" onclick="window.open('/user?nome={{nome}}&pfp={{pfp}}', '_self')" style="border: 2px solid green; padding-left: 2px;">
                     <p>{{nome}}</p>
-                    <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+                    <img src="/img/{{pfp}}.png">
                 </div>
                 {{else}}
                 <div id="Usuario" onclick="window.open('/cadastro', '_self')" style="border: 2px solid red; padding-left: 2px;">
                     <p>Logar</p>
-                    <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
+                    <img src="/img/pfp0.png">
                 </div>
                 {{/if}}
                 

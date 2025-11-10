@@ -1,0 +1,22 @@
+body{
+background-color: blueviolet;
+overflow-x: hidden;
+}
+
+#topo{
+    display: flex;
+    flex-direction: row;
+    height: 360px;
+}
+
+#topo img{
+    height: 360px;
+    width: 360px;
+
+}
+
+#topo h1{
+    color: white;
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 40px;
+}

@@ -1,21 +1,67 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
     <title>Cadastro</title>
+    <link rel="icon" href="/img/favicon.png">
+    <link rel="Stylesheet" href="css/cadastroPage.css">
   </head>
   <body>
-    <header>
-      <h1>Cadastro de Usuário</h1>
-    </header>
-    <form action="/cadastro/novo" method="POST">
-      <input type="text" name="nome" placeholder="Seu nome" required /><br />
-      <input type="password" name="senha" placeholder="Sua senha" required /><br
-      />
-      <input type="number" name="idade" placeholder="Sua idade" required /><br
-      />
-      <button type="submit">Cadastrar</button>
-    </form>
-    <a href="/">Voltar</a>
+    <div id="flexCenter">
+      <div id="Column">
+        <header>
+          <h1>Cadastro de Usuário</h1>
+        </header>
+          <form id="cadastroNovo" action="/cadastro/novo" method="POST">
+          <div>
+          <input type="text" name="nome" placeholder="Seu nome" pattern="^\S+$" title="O nome de usuário não deve conter espaços." required /><br/>
+          </div>
+          <div>
+          <input type="password" name="senha" placeholder="Sua senha" required /><br/>
+          </div>
+          <div>
+          <input type="number" name="idade" placeholder="Sua idade" required /><br/>
+          </div>
+        
+ <h2>Selecione sua foto de perfil:</h2>
+<div id="gradeImagens">
+<label for="pfp0" class="pfps">
+    <img src="/img/pfp0.png">
+    <input type="radio" id="pfp0" name="pfp" value="pfp0" checked>
+</label>
+
+<label for="pfp1" class="pfps">
+    <img src="/img/pfp1.png">
+    <input type="radio" id="pfp1" name="pfp" value="pfp1">
+</label>
+
+<label for="pfp2" class="pfps">
+    <img src="/img/pfp2.png">
+    <input type="radio" id="pfp2" name="pfp" value="pfp2">
+</label>
+
+<label for="pfp3" class="pfps">
+    <img src="/img/pfp3.png">
+    <input type="radio" id="pfp3" name="pfp" value="pfp3">
+</label>
+
+<label for="pfp4" class="pfps">
+    <img src="/img/pfp4.png">
+    <input type="radio" id="pfp4" name="pfp" value="pfp4">
+</label>
+
+<label for="pfp5" class="pfps">
+    <img src="/img/pfp5.png">
+    <input type="radio" id="pfp5" name="pfp" value="pfp5">
+</label>
+</div>
+
+
+          <button type="submit">Cadastrar</button>
+        </form>
+        <a href="/">Voltar</a>  
+      </div>
+    </div>
+
   </body>
 </html>
