@@ -1,0 +1,78 @@
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
+      rel="stylesheet"
+    />
+    <title>Atualização</title>
+    <link rel="icon" href="/img/favicon.png" />
+    <link rel="Stylesheet" href="/css/cadastroPage.css" />
+  </head>
+  <body>
+    <div id="flexCenter">
+      <div id="Column">
+        <header>
+          <h1>Atualização de Usuário</h1>
+        </header>
+        <form id="userAtualizar" action="/user/atualizar" method="POST">
+          <div>
+            <input
+              type="text"
+              name="nome"
+              value="{{nome}}"
+              pattern="^\S+$"
+              title="O nome de usuário não deve conter espaços."
+              required
+            /><br />
+          </div>
+          <input type="hidden" name="nomeOriginal" value="{{nome}}" />
+          <div>
+            <input type="password" name="senha" value="{{senha}}" required /><br
+            />
+          </div>
+          <div>
+            <input type="number" name="idade" value="{{idade}}" required /><br
+            />
+          </div>
+
+          <h2>Selecione sua foto de perfil:</h2>
+          <div id="gradeImagens">
+            <label for="pfp0" class="pfps">
+              <img src="/img/pfp0.png" />
+              <input type="radio" id="pfp0" name="pfp" value="pfp0" checked />
+            </label>
+
+            <label for="pfp1" class="pfps">
+              <img src="/img/pfp1.png" />
+              <input type="radio" id="pfp1" name="pfp" value="pfp1" />
+            </label>
+
+            <label for="pfp2" class="pfps">
+              <img src="/img/pfp2.png" />
+              <input type="radio" id="pfp2" name="pfp" value="pfp2" />
+            </label>
+
+            <label for="pfp3" class="pfps">
+              <img src="/img/pfp3.png" />
+              <input type="radio" id="pfp3" name="pfp" value="pfp3" />
+            </label>
+
+            <label for="pfp4" class="pfps">
+              <img src="/img/pfp4.png" />
+              <input type="radio" id="pfp4" name="pfp" value="pfp4" />
+            </label>
+
+            <label for="pfp5" class="pfps">
+              <img src="/img/pfp5.png" />
+              <input type="radio" id="pfp5" name="pfp" value="pfp5" />
+            </label>
+          </div>
+
+          <button type="submit">Atualizar</button>
+        </form>
+        <a href="/">Voltar</a>
+      </div>
+    </div>
+
+  </body>
+</html>
