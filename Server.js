@@ -16,9 +16,9 @@ app.listen(port, () => {
 });
 
 let users = [
-  { id: 1, nome: "DstoneDev", senha: "Waguri123Teto", idade: 17, pfp: "pfp0" },
-  { id: 2, nome: "FortieDev", senha: "johnFortune69", idade: 16, pfp: "pfp0" },
-  { id: 3, nome: "CrooslDev", senha: "TwitterUser99", idade: 17, pfp: "pfp0" },
+  { id: 1, nome: "DstoneDev", senha: "Waguri123Teto", idade: 17, pfp: "pfp4" },
+  { id: 2, nome: "FortieDev", senha: "johnFortune69", idade: 16, pfp: "pfp1" },
+  { id: 3, nome: "CrooslDev", senha: "TwitterUser99", idade: 17, pfp: "pfp5" },
 ];
 
 app.get("/", (req, res) => {
@@ -72,3 +72,20 @@ app.post("/user/atualizar", (req, res) => {
     res.redirect("/");
   }
 });
+
+app.get("/login", (req, res) => res.render("LoginUser"));
+
+app.post("/login/logar", (req, res) => {
+const { nome, senha } = req.body;
+const userLogin = users.find(u => u.nome === nome);
+
+if(userLogin && userLogin.senha === senha){
+res.redirect(`/user?nome=${userLogin.nome}&pfp=${userLogin.pfp}`);
+}else{
+    return res.status(401).json({ 
+            sucesso: false, 
+            erro: "Login ou Senha Incorretos!"
+          });
+}
+}
+);
