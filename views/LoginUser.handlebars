@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <title>Cadastro</title>
+    <link rel="icon" href="/img/favicon.png">
+    <link rel="Stylesheet" href="css/cadastroPage.css">
+  </head>
+  <body>
+    <div id="flexCenter">
+      <div id="Column">
+        <header>
+          <h1>Login de Usuário</h1>
+        </header>
+          <form id="LogarConta" action="/Login/logar" method="POST">
+          <div>
+          <input type="text" name="nome" placeholder="Seu nome" pattern="^\S+$" title="O nome de usuário não deve conter espaços." required /><br/>
+          </div>
+          <div>
+          <input type="password" name="senha" placeholder="Sua senha" required /><br/>
+          </div>
+            <p>{{erro}}</p>
+         <button id="IMPORTANTE" type="submit">Logar</button>
+        </form>
+
+        <button><a href="/">Voltar</a></button>
+        <p>Não possui conta? <a href="/cadastro"> Cadastre </a> uma agora!</p>  
+      </div>
+    </div>
+
+  </body>
+</html>
