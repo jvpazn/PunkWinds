@@ -1,17 +1,21 @@
 body{
 background-color: blueviolet;
+margin: 0;
 overflow-x: hidden;
 }
 
-#topo{
+header{
     display: flex;
     flex-direction: row;
-    height: 360px;
+    height: 160px;
+     height: 160px;
+     background-color: #750da2;
+
 }
 
-#topo img{
-    height: 360px;
-    width: 360px;
+header img{
+    height: 160px;
+    width: 160px;
 
 }
 
