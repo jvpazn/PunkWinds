@@ -73,6 +73,7 @@ header h1 {
     grid-area: m;
     display: flex;
     flex-direction: column;
+
 }
 
 #Usuario{
@@ -94,8 +95,6 @@ header h1 {
 }
 
 
-
-
 #FirstImgSet{
     width: 100%;
     height: 400px;
@@ -111,14 +110,21 @@ header h1 {
     margin: 0;
     display: flex;
     flex-direction: column;
+    transition: 0.2s ease-in-out;
+}
+
+.imgPrice:hover{
+
+scale: 1.02;
+
 }
 
 .imgPrice img{
     height: 380px;
     width: 520px;
     margin: 0;
-
 }
+
 
 .PriceName{
     display: flex;
@@ -133,4 +139,3 @@ header h1 {
     margin-left: 5px;
     margin-right: 5px;
 }
-
