@@ -1,5 +1,10 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
+const fs = require("fs");
+const path = require("path");
+
+const usersFilePath = path.join(__dirname, "data", "users.json");
+const gamesFilePath = path.join(__dirname, "data", "games.json");
 
 const app = express();
 const port = 3000;
@@ -15,22 +20,36 @@ app.listen(port, () => {
   console.log(`Servidor em execução: http://localhost:${port}`);
 });
 
-let games = [
-  {idgames : 1, gameName: "JojoLands: All-Star Battle", gamePrice: 44.99, gameImg:"JojoLandsAllStarBattle"},
-  {idgames : 2, gameName: "My lovely Furmate", gamePrice: 62.10, gameImg:"MyLovelyFurmate"},
-  {idgames : 3, gameName: "Mob psycho 100 showdown", gamePrice: 59.99, gameImg:"Mob100psychicShowdown"},
+function getUsers() {
+  if (!fs.existsSync(usersFilePath)) return [];
+  const data = fs.readFileSync(usersFilePath);
+  return JSON.parse(data);
+}
 
-]
+function saveUsers(users) {
+  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
+}
 
-let users = [
-  { id: 1, nome: "DstoneDev", senha: "Waguri123Teto", idade: 17, pfp: "pfp4" },
-  { id: 2, nome: "FortieDev", senha: "johnFortune69", idade: 16, pfp: "pfp1" },
-  { id: 3, nome: "CrooslDev", senha: "TwitterUser99", idade: 17, pfp: "pfp5" },
-];
+function getGames() {
+  if (!fs.existsSync(gamesFilePath)) return [];
+  const data = fs.readFileSync(gamesFilePath);
+  return JSON.parse(data);
+}
+
+function getUserById(id) {
+  const users = getUsers();
+  return users.find((u) => u.id == id);
+}
 
 app.get("/", (req, res) => {
-  const { nome, pfp } = req.query;
-  res.render("homePage", { nome: nome, pfp: pfp });
+  const { id } = req.query;
+  const user = getUserById(id);
+
+  if (user) {
+    res.render("homePage", { nome: user.nome, pfp: user.pfp, id: user.id });
+  } else {
+    res.render("homePage");
+  }
 });
 
 app.get("/disconnect", (req, res) => {
@@ -38,24 +57,44 @@ app.get("/disconnect", (req, res) => {
 });
 
 app.get("/user", (req, res) => {
-  const { nome, pfp } = req.query;
-  res.render("UserPage", { nome: nome, pfp: pfp });
+  const { id } = req.query;
+  const user = getUserById(id);
+
+  if (user) {
+    res.render("UserPage", { nome: user.nome, pfp: user.pfp, id: user.id });
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/cadastro", (req, res) => res.render("cadastroPage"));
 
 app.post("/cadastro/novo", (req, res) => {
   const { nome, senha, idade, pfp } = req.body;
+
+  const users = getUsers();
   const id = users.length + 1;
-  users.push({ id, nome, senha, idade: parseInt(idade), pfp });
-  res.redirect(`/?nome=${users[id - 1].nome}&pfp=${users[id - 1].pfp}`);
+  const newUser = {
+    id,
+    nome,
+    senha,
+    idade: parseInt(idade),
+    pfp,
+    biblioteca: [],
+  };
+  users.push(newUser);
+  saveUsers(users);
+
+  res.redirect(`/?id=${newUser.id}`);
 });
 
 app.get("/user/atualizar", (req, res) => {
-  const { nome } = req.query;
-  const user = users.find((u) => u.nome === nome);
+  const { id } = req.query;
+  const user = getUserById(id);
+
   if (user) {
     res.render("atualizarPage", {
+      id: user.id,
       nome: user.nome,
       senha: user.senha,
       idade: user.idade,
@@ -67,14 +106,19 @@ app.get("/user/atualizar", (req, res) => {
 });
 
 app.post("/user/atualizar", (req, res) => {
-  const { nomeOriginal, nome, senha, idade, pfp } = req.body;
-  const user = users.find((u) => u.nome === nomeOriginal);
-  if (user) {
-    user.nome = nome;
-    user.senha = senha;
-    user.idade = parseInt(idade);
-    user.pfp = pfp;
-    res.redirect(`/?nome=${user.nome}&pfp=${user.pfp}`);
+  const { id, nome, senha, idade, pfp } = req.body;
+  const users = getUsers();
+  const userIndex = users.findIndex((u) => u.id == id);
+
+  if (userIndex !== -1) {
+    users[userIndex].nome = nome;
+    users[userIndex].senha = senha;
+    users[userIndex].idade = parseInt(idade);
+    users[userIndex].pfp = pfp;
+
+    saveUsers(users);
+
+    res.redirect(`/?id=${users[userIndex].id}`);
   } else {
     res.redirect("/");
   }
@@ -83,26 +127,34 @@ app.post("/user/atualizar", (req, res) => {
 app.get("/login", (req, res) => res.render("LoginUser"));
 
 app.post("/login/logar", (req, res) => {
-const { nome, senha } = req.body;
-const userLogin = users.find(u => u.nome === nome);
+  const { nome, senha } = req.body;
+  const users = getUsers();
+  const userLogin = users.find((u) => u.nome === nome);
 
-if(userLogin && userLogin.senha === senha){
-res.redirect(`/user?nome=${userLogin.nome}&pfp=${userLogin.pfp}`);
-}else{
-    return res.status(401).json({ 
-            sucesso: false, 
-            erro: "Login ou Senha Incorretos!"
-          });
-}
-}
-);
+  if (userLogin && userLogin.senha === senha) {
+    res.redirect(`/?id=${userLogin.id}`);
+  } else {
+    res.render("LoginUser", {
+      erro: "Login ou Senha Incorretos!",
+    });
+  }
+});
 
 app.get("/game", (req, res) => {
-  const { idgames, nome, pfp } = req.query;
+  const { idgames, id } = req.query;
+  const games = getGames();
+  const user = getUserById(id);
   const jogo = games.find((u) => u.idgames === Number(idgames));
-  const gameName = jogo.gameName;
-  const gamePrice = jogo.gamePrice;
-  const gameImg = jogo.gameImg;
 
-  res.render("gamePage", { gameName, gamePrice, gameImg });
+  if (jogo) {
+    res.render("gamePage", {
+      gameName: jogo.gameName,
+      gamePrice: jogo.gamePrice,
+      gameImg: jogo.gameImg,
+      id: id,
+      nome: user ? user.nome : null,
+    });
+  } else {
+    res.redirect(`/?id=${id}`);
+  }
 });
