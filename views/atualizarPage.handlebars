@@ -1,8 +1,11 @@
 <html lang="en">
   <head>
-    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
+      rel="stylesheet"
+    />
     <title>Atualização</title>
-    <link rel="icon" href="/img/favicon.png"/>
+    <link rel="icon" href="/img/favicon.png" />
     <link rel="Stylesheet" href="/css/cadastroPage.css" />
   </head>
   <body>
@@ -12,6 +15,8 @@
           <h1>Atualização de Usuário</h1>
         </header>
         <form id="userAtualizar" action="/user/atualizar" method="POST">
+          <input type="hidden" name="id" value="{{id}}" />
+
           <div>
             <input
               type="text"
@@ -22,7 +27,7 @@
               required
             /><br />
           </div>
-          <input type="hidden" name="nomeOriginal" value="{{nome}}" />
+
           <div>
             <input type="password" name="senha" value="{{senha}}" required /><br
             />
@@ -67,7 +72,7 @@
 
           <button id="IMPORTANTE" type="submit">Atualizar</button>
         </form>
-        <a href="/user?nome={{nome}}&pfp={{pfp}}">Voltar</a>
+        <a href="/user?id={{id}}">Voltar</a>
       </div>
     </div>
 
