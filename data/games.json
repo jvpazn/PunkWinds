@@ -1,0 +1,20 @@
+[
+  {
+    "idgames": 1,
+    "gameName": "JojoLands: All-Star Battle",
+    "gamePrice": 44.99,
+    "gameImg": "JojoLandsAllStarBattle"
+  },
+  {
+    "idgames": 2,
+    "gameName": "My lovely Furmate",
+    "gamePrice": 62.1,
+    "gameImg": "MyLovelyFurmate"
+  },
+  {
+    "idgames": 3,
+    "gameName": "Mob psycho 100 showdown",
+    "gamePrice": 59.99,
+    "gameImg": "Mob100psychicShowdown"
+  }
+]
