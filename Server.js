@@ -15,6 +15,13 @@ app.listen(port, () => {
   console.log(`Servidor em execução: http://localhost:${port}`);
 });
 
+let games = [
+  {idgames : 1, gameName: "JojoLands: All-Star Battle", gamePrice: 44.99, gameImg:"JojoLandsAllStarBattle"},
+  {idgames : 2, gameName: "My lovely Furmate", gamePrice: 62.10, gameImg:"MyLovelyFurmate"},
+  {idgames : 3, gameName: "Mob psycho 100 showdown", gamePrice: 59.99, gameImg:"Mob100psychicShowdown"},
+
+]
+
 let users = [
   { id: 1, nome: "DstoneDev", senha: "Waguri123Teto", idade: 17, pfp: "pfp4" },
   { id: 2, nome: "FortieDev", senha: "johnFortune69", idade: 16, pfp: "pfp1" },
@@ -30,6 +37,11 @@ app.get("/disconnect", (req, res) => {
   res.render("homePage");
 });
 
+app.get("/user", (req, res) => {
+  const { nome, pfp } = req.query;
+  res.render("UserPage", { nome: nome, pfp: pfp });
+});
+
 app.get("/cadastro", (req, res) => res.render("cadastroPage"));
 
 app.post("/cadastro/novo", (req, res) => {
@@ -37,11 +49,6 @@ app.post("/cadastro/novo", (req, res) => {
   const id = users.length + 1;
   users.push({ id, nome, senha, idade: parseInt(idade), pfp });
   res.redirect(`/?nome=${users[id - 1].nome}&pfp=${users[id - 1].pfp}`);
-});
-
-app.get("/user", (req, res) => {
-  const { nome, pfp } = req.query;
-  res.render("UserPage", { nome: nome, pfp: pfp });
 });
 
 app.get("/user/atualizar", (req, res) => {
@@ -89,3 +96,13 @@ res.redirect(`/user?nome=${userLogin.nome}&pfp=${userLogin.pfp}`);
 }
 }
 );
+
+app.get("/game", (req, res) => {
+  const { idgames, nome, pfp } = req.query;
+  const jogo = games.find((u) => u.idgames === Number(idgames));
+  const gameName = jogo.gameName;
+  const gamePrice = jogo.gamePrice;
+  const gameImg = jogo.gameImg;
+
+  res.render("gamePage", { gameName, gamePrice, gameImg });
+});

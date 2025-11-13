@@ -32,15 +32,23 @@
 
 <main id="Content">
     <div id="FirstImgSet">
-        <div class="imgPrice">
+        {{#unless nome}}
+        <div class="imgPrice" onclick="window.open('/login', '_self')">
+        {{else}}
+        <div class="imgPrice" onclick="window.open('/game?idgames=1&nome={{nome}}&pfp={{pfp}}')">
+        {{/unless}}
             <img src="/img/JojoLandsAllStarBattle.png">
             <div class="PriceName">
-                <p>Jojolands: All-star battle</p>
+                <p>Jojolands: All-Star battle</p>
                 <p>R$ 44,99</p>
             </div>
         </div>
 
-        <div class="imgPrice">
+        {{#unless nome}}
+        <div class="imgPrice" onclick="window.open('/login', '_self')">
+        {{else}}
+        <div class="imgPrice" onclick="window.open('/game?idgames=2&nome={{nome}}&pfp={{pfp}}')">
+        {{/unless}}
             <img src="/img/MyLovelyFurmate.png">
             <div class="PriceName">
                 <p>My lovely Furmate</p>
@@ -48,7 +56,11 @@
             </div>
         </div>
 
-        <div class="imgPrice">
+        {{#unless nome}}
+        <div class="imgPrice" onclick="window.open('/login', '_self')">
+        {{else}}
+        <div class="imgPrice" onclick="window.open('/game?idgames=3&nome={{nome}}&pfp={{pfp}}')">
+        {{/unless}}
             <img src="/img/Mob100psychicShowdown.png">
             <div class="PriceName">
                 <p>Mob psycho 100 showdown</p>
