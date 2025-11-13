@@ -16,7 +16,7 @@
                 <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
                 <img src="/img/thealwaysreliablePLACEHOLDER.jpeg">
                 {{#if nome}}
-                <div id="Usuario" onclick="window.open('/user?nome={{nome}}&pfp={{pfp}}', '_self')" style="border: 2px solid green; padding-left: 2px;">
+                <div id="Usuario" onclick="window.open('/user?id={{id}}', '_self')" style="border: 2px solid green; padding-left: 2px;">
                     <p>{{nome}}</p>
                     <img src="/img/{{pfp}}.png">
                 </div>
@@ -35,7 +35,7 @@
         {{#unless nome}}
         <div class="imgPrice" onclick="window.open('/login', '_self')">
         {{else}}
-        <div class="imgPrice" onclick="window.open('/game?idgames=1&nome={{nome}}&pfp={{pfp}}')">
+        <div class="imgPrice" onclick="window.open('/game?idgames=1&id={{id}}', '_self')">
         {{/unless}}
             <img src="/img/JojoLandsAllStarBattle.png">
             <div class="PriceName">
@@ -47,7 +47,7 @@
         {{#unless nome}}
         <div class="imgPrice" onclick="window.open('/login', '_self')">
         {{else}}
-        <div class="imgPrice" onclick="window.open('/game?idgames=2&nome={{nome}}&pfp={{pfp}}')">
+        <div class="imgPrice" onclick="window.open('/game?idgames=2&id={{id}}', '_self')">
         {{/unless}}
             <img src="/img/MyLovelyFurmate.png">
             <div class="PriceName">
@@ -59,7 +59,7 @@
         {{#unless nome}}
         <div class="imgPrice" onclick="window.open('/login', '_self')">
         {{else}}
-        <div class="imgPrice" onclick="window.open('/game?idgames=3&nome={{nome}}&pfp={{pfp}}')">
+        <div class="imgPrice" onclick="window.open('/game?idgames=3&id={{id}}', '_self')">
         {{/unless}}
             <img src="/img/Mob100psychicShowdown.png">
             <div class="PriceName">
