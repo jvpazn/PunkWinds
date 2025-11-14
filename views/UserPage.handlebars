@@ -17,5 +17,38 @@
     <a href="/?id={{id}}">Home</a>
     <a href="/">Desconectar</a>
     <a href="/user/atualizar/?id={{id}}">Atualizar Dados</a>
+    <a href="/user/deletar/?id={{id}}" id="Verificacao">Deletar conta</a>
+
+
+  <script> 
+    const deleteLink = document.getElementById('Verificacao');
+    let clickedOnce = false;
+    deleteLink.addEventListener('click', function(event) {
+        if (!clickedOnce) {
+            event.preventDefault(); 
+
+            const message = "Tem certeza? Se tiver, pressione novamente\nLembrando: Isso irá deletar TODOS os seus dados";
+            alert(message);
+
+            clickedOnce = true;
+            deleteLink.textContent = 'CONFIRMAR DELETAR AGORA';
+            deleteLink.style.color = 'red';
+            deleteLink.style.fontWeight = 'bold';
+
+
+            setTimeout(() => {
+                if (clickedOnce) {
+                    clickedOnce = false;
+                    deleteLink.textContent = 'Deletar conta'; 
+                    deleteLink.style.color = ''; 
+                    deleteLink.style.fontWeight = '';
+                }
+            }, 5000); 
+        } else {
+        
+        }
+    });
+</script>
+  </script>
   </body>
 </html>
