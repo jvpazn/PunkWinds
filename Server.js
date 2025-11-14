@@ -124,6 +124,19 @@ app.post("/user/atualizar", (req, res) => {
   }
 });
 
+app.get("/user/deletar", (req, res) => {
+  const { id } = req.query;
+  const users = getUsers();
+  const index = users.findIndex((u) => u.id === Number(id));
+  if (index !== -1) {
+    users.splice(index, 1)
+    saveUsers(users);
+    res.redirect("/login")
+  } else{
+      res.redirect("/");
+    };
+  });
+
 app.get("/login", (req, res) => res.render("LoginUser"));
 
 app.post("/login/logar", (req, res) => {
