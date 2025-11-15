@@ -102,11 +102,13 @@ header h1 {
     display: flex;
     gap: 20px;
     flex-direction: row;
-    background-color: rgba(0, 0, 0, 0.2)
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 50px ;
 }
 
 .imgPrice{
     height: 400px;
+    width: 520px;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -140,3 +142,22 @@ scale: 1.02;
     margin-right: 5px;
 }
 
+h2{
+    margin: 0;
+    font-size: 30px;
+    color: white;
+    font-family: 'Sedgwick Ave Display', cursive;
+    margin-left: 135px;
+}
+
+#SecondImageSet{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 520px);
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    gap: 25px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+}
