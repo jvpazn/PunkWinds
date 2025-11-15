@@ -5,7 +5,8 @@
     "senha": "Waguri123Teto",
     "idade": 17,
     "pfp": "pfp4",
-    "biblioteca": []
+    "biblioteca": [],
+    "amigos": []
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "senha": "johnFortune69",
     "idade": 16,
     "pfp": "pfp1",
-    "biblioteca": []
+    "biblioteca": [],
+    "amigos": []
   },
   {
     "id": 3,
@@ -21,6 +23,16 @@
     "senha": "TwitterUser99",
     "idade": 17,
     "pfp": "pfp3",
-    "biblioteca": []
+    "biblioteca": [],
+    "amigos": []
+  },
+  {
+    "id": 4,
+    "nome": "121212",
+    "senha": "12121212",
+    "idade": 19,
+    "pfp": "pfp1",
+    "biblioteca": [],
+    "amigos": []
   }
 ]

@@ -14,11 +14,33 @@
       <h1>Seja bem vindo novamente, {{nome}}</h1>
     </header>
 
+  <main>
+    <div id="firstColumn">
     <a href="/?id={{id}}">Home</a>
     <a href="/">Desconectar</a>
     <a href="/user/atualizar/?id={{id}}">Atualizar Dados</a>
     <a href="/user/deletar/?id={{id}}" id="Verificacao">Deletar conta</a>
+    </div>
 
+    <div id="secondColumn">
+      <h2>Lista de Amigos ({{amigos.length}})</h2>
+      {{#if maisde0amg}}
+      <p>placeholder</p>
+      {{else}}
+      <p>Você Não possui amigos! Hora de fazer alguns!</p>
+      {{/if}}
+
+    </div>
+    <div id="thirdColumn">
+      <h2>Lista de Jogos ({{biblioteca.length}})</h2>
+      {{#if maisde0amg}}
+      <p>placeholder</p>
+      {{else}}
+      <p>Você Não possui Jogo! Hora de Gastar!!!</p>
+      {{/if}}
+    </div>
+
+  </main>
 
   <script> 
     const deleteLink = document.getElementById('Verificacao');

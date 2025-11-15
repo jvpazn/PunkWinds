@@ -52,21 +52,6 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get("/disconnect", (req, res) => {
-  res.render("homePage");
-});
-
-app.get("/user", (req, res) => {
-  const { id } = req.query;
-  const user = getUserById(id);
-
-  if (user) {
-    res.render("UserPage", { nome: user.nome, pfp: user.pfp, id: user.id });
-  } else {
-    res.redirect("/");
-  }
-});
-
 app.get("/cadastro", (req, res) => res.render("cadastroPage"));
 
 app.post("/cadastro/novo", (req, res) => {
@@ -81,11 +66,30 @@ app.post("/cadastro/novo", (req, res) => {
     idade: parseInt(idade),
     pfp,
     biblioteca: [],
+    amigos: [],
   };
   users.push(newUser);
   saveUsers(users);
 
   res.redirect(`/?id=${newUser.id}`);
+});
+
+app.get("/user", (req, res) => {
+  const { id } = req.query;
+  const user = getUserById(id);
+
+  if (user) {
+    const maisde0amg = user.amigos.length > 0;
+    const maisde0Jogos = user.biblioteca.length > 0;
+
+    res.render("UserPage", { nome: user.nome, pfp: user.pfp, id: user.id, biblioteca: user.biblioteca, amigos: user.amigos, maisde0amg, maisde0Jogos});
+  } else {
+    res.redirect("/");
+  }
+});
+
+app.get("/disconnect", (req, res) => {
+  res.render("homePage");
 });
 
 app.get("/user/atualizar", (req, res) => {
