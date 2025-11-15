@@ -31,6 +31,7 @@
     </header>
 
 <main id="Content">
+    <h2>Novos em Ascensão</h2>
     <div id="FirstImgSet">
         {{#unless nome}}
         <div class="imgPrice" onclick="window.open('/login', '_self')">
@@ -69,6 +70,57 @@
         </div>
     </div>
 
+    <h2 id="Margin">Famosos Entre Players competitivos</h2>
+    <div id="SecondImageSet">
+        {{#unless nome}}
+        <div class="imgPrice" onclick="window.open('/login', '_self')">
+        {{else}}
+        <div class="imgPrice" onclick="window.open('/game?idgames=4&id={{id}}', '_self')">
+        {{/unless}}
+            <img src="/img/TouhouIF.png">
+            <div class="PriceName">
+                <p>歴史の怒り ~ Touhou Irreversible Fate</p>
+                <p>R$ 19,99</p>
+            </div>
+        </div>
+
+        {{#unless nome}}
+        <div class="imgPrice" onclick="window.open('/login', '_self')">
+        {{else}}
+        <div class="imgPrice" onclick="window.open('/game?idgames=5&id={{id}}', '_self')">
+        {{/unless}}
+            <img src="/img/XichunTrainSim.png">
+            <div class="PriceName">
+                <p>Limbus company : Xichun Training Simulator</p>
+                <p>Grátis</p>
+            </div>
+        </div>
+
+        {{#unless nome}}
+        <div class="imgPrice" onclick="window.open('/login', '_self')">
+        {{else}}
+        <div class="imgPrice" onclick="window.open('/game?idgames=6&id={{id}}', '_self')">
+        {{/unless}}
+            <img src="/img/SisyphusSim.png">
+            <div class="PriceName">
+                <p>Sisyphus Simulator</p>
+                <p>R$ 9,99</p>
+            </div>
+        </div>
+
+        {{#unless nome}}
+        <div class="imgPrice" onclick="window.open('/login', '_self')">
+        {{else}}
+        <div class="imgPrice" onclick="window.open('/game?idgames=7&id={{id}}', '_self')">
+        {{/unless}}
+            <img src="/img/deltarune2.png">
+            <div class="PriceName">
+                <p>Deltarune 2</p>
+                <p>R$ 74,99</p>
+            </div>
+        </div>
+
+    </div>
 
 </main>
 
