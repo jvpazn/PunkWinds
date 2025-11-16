@@ -5,7 +5,14 @@
     "senha": "Waguri123Teto",
     "idade": 17,
     "pfp": "pfp4",
-    "biblioteca": [],
+    "biblioteca": [  
+      {
+    "idgames": 7,
+    "gameName": "Deltarune 2",
+    "gamePrice": 74.99,
+    "gameImg": "deltarune2"
+  }
+],
     "amigos": []
   },
   {
@@ -14,7 +21,20 @@
     "senha": "johnFortune69",
     "idade": 16,
     "pfp": "pfp1",
-    "biblioteca": [],
+    "biblioteca": [
+      {
+        "idgames": 2,
+        "gameName": "My lovely Furmate",
+        "gamePrice": 62.1,
+        "gameImg": "MyLovelyFurmate"
+      },
+      {
+        "idgames": 4,
+        "gameName": "歴史の怒り ~ Touhou Irreversible Fate",
+        "gamePrice": 19.99,
+        "gameImg": "TouhouIF"
+      }
+    ],
     "amigos": []
   },
   {
@@ -23,7 +43,14 @@
     "senha": "TwitterUser99",
     "idade": 17,
     "pfp": "pfp3",
-    "biblioteca": [],
+    "biblioteca": [
+  {
+    "idgames": 5,
+    "gameName": "Limbus company : Xichun Training Simulator",
+    "gamePrice": 0,
+    "gameImg": "XichunTrainSim"
+  }
+],
     "amigos": []
   },
   {
