@@ -33,8 +33,14 @@
     </div>
     <div id="thirdColumn">
       <h2>Lista de Jogos ({{biblioteca.length}})</h2>
-      {{#if maisde0amg}}
-      <p>placeholder</p>
+      {{#if maisde0Jogos}}
+        {{#each biblioteca}}
+        <div class="Game">
+          <img src="/img/{{gameImg}}.png"/>
+          <h2>{{gameName}}</h2>
+        </div>
+        
+        {{/each}}
       {{else}}
       <p>Você Não possui nenhum Jogo! Hora de Gastar!!!</p>
       {{/if}}
@@ -74,4 +80,3 @@
   </script>
   </body>
 </html>
-
