@@ -12,5 +12,10 @@
     <img src="/img/{{gameImg}}.png" />
     <p>{{gameName}}</p>
     <p>{{gamePrice}}</p>
+    <form action="/game/comprar" method="POST">
+        <input type="hidden" name="idgames" value="{{idgames}}">
+        <input type="hidden" name="id" value="{{id}}">
+    <button type="submit">Comprar Jogo</button>
+    </form>
   </body>
 </html>
