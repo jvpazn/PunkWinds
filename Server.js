@@ -165,6 +165,7 @@ app.get("/game", (req, res) => {
 
   if (jogo) {
     res.render("gamePage", {
+      idgames: jogo.idgames,
       gameName: jogo.gameName,
       gamePrice: jogo.gamePrice,
       gameImg: jogo.gameImg,
@@ -174,4 +175,39 @@ app.get("/game", (req, res) => {
   } else {
     res.redirect(`/?id=${id}`);
   }
+});
+
+app.post("/game/comprar", (req, res) => {
+  const { idgames, id } = req.body;
+  
+  const games = getGames();
+  const users = getUsers();
+
+  const userIndex = users.findIndex(u => u.id == id);
+  if (userIndex === -1) {
+    return res.status(404).send({ message: "Usuário não encontrado." });
+  }
+
+  const user = users[userIndex];
+
+  const jogo = games.find(g => g.idgames === Number(idgames));
+  if (!jogo) {
+    return res.status(404).send({ message: "Jogo não encontrado." });
+  }
+
+  const jatem = user.biblioteca.find(j => j.idgames === Number(idgames));
+  if (jatem) {
+    return res.status(400).send({ message: "Jogo já comprado." });
+  }
+
+  user.biblioteca.push({
+    idgames: jogo.idgames,
+    gameName: jogo.gameName,
+    gamePrice: jogo.gamePrice,
+    gameImg: jogo.gameImg 
+  });
+
+  saveUsers(users);
+
+  res.redirect(`/?id=${id}`);
 });
