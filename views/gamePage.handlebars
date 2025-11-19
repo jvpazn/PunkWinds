@@ -7,15 +7,64 @@
     <title>{{gameName}}</title>
     <link rel="icon" href="/img/favicon.png" />
     <link rel="Stylesheet" href="css/cadastroPage.css" />
-  </head>
+    </head>
   <body>
     <img src="/img/{{gameImg}}.png" />
     <p>{{gameName}}</p>
-    <p>{{gamePrice}}</p>
+    {{#unless gamePrice}}
+    <p>Grátis</p>
+    {{else}}
+    <p>R$ {{gamePrice}}</p>
+    {{/unless}}
     <form action="/game/comprar" method="POST">
-        <input type="hidden" name="idgames" value="{{idgames}}">
-        <input type="hidden" name="id" value="{{id}}">
-    <button type="submit">Comprar Jogo</button>
+      <input type="hidden" name="idgames" value="{{idgames}}">
+      <input type="hidden" name="id" value="{{id}}">
+      {{#unless gamePrice}}
+            <button type="submit" id="buyButton">
+        adquirir Jogo
+      </button>
     </form>
-  </body>
+    {{else}}
+      <div>
+        <label for="cpf">CPF (apenas números):</label>
+        <input 
+          type="text" 
+          id="cpf" 
+          name="cpf" 
+          placeholder="00000000000" 
+          pattern="[0-9]{11}"
+          maxlength="11"
+          title="Por favor, insira 11 dígitos numéricos do CPF."
+          required
+        />
+      </div>
+      
+      <div>
+        <label for="paymentMethod">Forma de Pagamento:</label>
+        <select id="paymentMethod" name="paymentMethod" required>
+          <option value="" disabled selected>Selecione a forma de pagamento</option>
+          <option value="Pix">Pix</option>
+          <option value="PayPal">PayPal</option>
+          <option value="Boleto bancário">Boleto bancário</option>
+          <option value="Boleto Flash">Boleto Flash</option>
+          <option value="Visa (Brasil)">Visa (Brasil)</option>
+          <option value="Mastercard (Brasil)">Mastercard (Brasil)</option>
+          <option value="American Express (Brasil)">American Express (Brasil)</option>
+          <option value="Pagseguro">Pagseguro</option>
+          <option value="Visa">Visa</option>
+          <option value="MasterCard">MasterCard</option>
+          <option value="JCB">JCB</option>
+          <option value="Hipercard">Hipercard</option>
+          <option value="Diner's Club (Brasil)">Diner's Club (Brasil)</option>
+          <option value="Visa Electron (Brasil)">Visa Electron (Brasil)</option>
+        </select>
+      </div>
+
+      <button type="submit" id="buyButton">
+        Comprar Jogo
+      </button>
+    {{/unless}}
+    </form>
+    
+    </body>
 </html>

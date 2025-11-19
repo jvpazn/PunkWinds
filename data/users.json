@@ -13,7 +13,16 @@
         "gameImg": "deltarune2"
       }
     ],
-    "amigos": []
+    "amigos": [
+      {
+        "id": 3,
+        "nickname": ""
+      },
+      {
+        "id": 2,
+        "nickname": ""
+      }
+    ]
   },
   {
     "id": 2,
@@ -26,16 +35,33 @@
         "idgames": 2,
         "gameName": "My lovely Furmate",
         "gamePrice": 62.1,
-        "gameImg": "MyLovelyFurmate"
+        "gameImg": "MyLovelyFurmate",
+        "nickname": "1000horas de Gameplay"
       },
       {
         "idgames": 4,
         "gameName": "歴史の怒り ~ Touhou Irreversible Fate",
         "gamePrice": 19.99,
         "gameImg": "TouhouIF"
+      },
+      {
+        "idgames": 5,
+        "gameName": "Limbus company : Xichun Training Simulator",
+        "gamePrice": 0,
+        "gameImg": "XichunTrainSim",
+        "nickname": ""
       }
     ],
-    "amigos": []
+    "amigos": [
+      {
+        "id": 3,
+        "nickname": ""
+      },
+      {
+        "id": 1,
+        "nickname": ""
+      }
+    ]
   },
   {
     "id": 3,
@@ -48,13 +74,18 @@
         "idgames": 5,
         "gameName": "Limbus company : Xichun Training Simulator",
         "gamePrice": 0,
-        "gameImg": "XichunTrainSim"
+        "gameImg": "XichunTrainSim",
+        "nickname": "Youtube Company"
       }
     ],
     "amigos": [
       {
-        "id": 4,
-        "nickname": "JoaoFurry"
+        "id": 1,
+        "nickname": ""
+      },
+      {
+        "id": 2,
+        "nickname": ""
       }
     ]
   },

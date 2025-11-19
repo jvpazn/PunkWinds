@@ -6,7 +6,7 @@
 }
 
 #Column{
-    width: 500px;
+    width: 800px;
     border-radius: 5%;
     background-color: #750da2;
     display: flex;
@@ -91,4 +91,18 @@ form input{
 
 #IMPORTANTE{
     margin-bottom: 10px;
+}
+
+#friendimg{
+    width: 500px;
+    height: 500px;
+}
+
+.game-info{
+    align-items: center;
+}
+
+.game-info img{
+    width: 500px;
+    height: 500px;
 }

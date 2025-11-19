@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
+      rel="stylesheet"
+    />
+    <title>Gerenciar Jogos</title>
+    <link rel="icon" href="/img/favicon.png" />
+    <link rel="Stylesheet" href="/css/cadastroPage.css" />
+  </head>
+  <body>
+
+    <div id="flexCenter">
+    <div id="Column">
+    <header>
+    <h1>Biblioteca de Jogos de {{nome}}</h1>
+    </header>
+    <div id="flexCenter">
+      <div id="Column">
+    {{#if erro}}
+        <div class="error-box">Erro! {{erro}}</div>
+    {{/if}}
+    {{#if sucesso}}
+        <div class="success-box">Sucesso! {{sucesso}}</div>
+    {{/if}}
+
+    <div>
+        {{#each jogos}}
+        <div class="game-card">
+            <div class="game-info">
+                <img src="/img/{{this.gameImg}}.png" alt="Capa do Jogo: {{this.gameName}}">
+                <div>
+                    <strong>
+                        <!-- Exibe o Apelido se existir, senão o Nome Original -->
+                        {{#if this.nickname}}
+                            {{this.nickname}}
+                        {{else}}
+                            {{this.gameName}}
+                        {{/if}}
+                    </strong>
+                    <br>
+                    <!-- Nome original e detalhes -->
+                    <small>@{{this.gameName}}</small>
+                    <br>
+                    <small>
+                        Preço de Compra: R$ {{this.gamePrice}}
+                        | ID: #{{this.idgames}}
+                    </small> 
+                </div>
+            </div>
+
+            <div class="actions">
+                <!-- Formulário de Apelido (Nickname) -->
+                <form action="/user/games/apelidar" method="POST" class="nickname-form">
+                    <input type="hidden" name="id" value="{{../id}}">
+                    <input type="hidden" name="idJogo" value="{{this.idgames}}">
+                    <input type="text" name="nickname" placeholder="Apelido..." value="{{this.nickname}}">
+                    <button type="submit" title="Salvar Apelido" class="save-nickname-button">Salvar Apelido</button>
+                </form>
+
+                <!-- Formulário de Remoção -->
+                <form action="/user/games/remover" method="POST">
+                    <input type="hidden" name="id" value="{{../id}}">
+                    <input type="hidden" name="idJogo" value="{{this.idgames}}">
+                    <button type="submit" class="remove-button" onclick="return confirm('Tem certeza que deseja reembolsar {{this.gameName}} da sua biblioteca?');">Remover Jogo</button>
+                </form>
+            </div>
+        </div>
+        {{else}}
+            <p>Sua biblioteca está vazia. Que tal adquirir alguns jogos?</p>
+        {{/each}}
+    </div>
+
+    <br>
+    <button><a href="/user?id={{id}}">⬅ Voltar para Perfil</a></button>
+  </div>
+</div>
+
+  </body>
+</html>
