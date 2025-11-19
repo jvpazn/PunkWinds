@@ -1,0 +1,75 @@
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
+      rel="stylesheet"
+    />
+    <title>Gerenciar Amigos</title>
+    <link rel="icon" href="/img/favicon.png" />
+    <link rel="Stylesheet" href="/css/cadastroPage.css" />
+  </head>
+  <body>
+    <div id="flexCenter">
+      <div id="Column">
+        <header>
+          <h1>Amigos de {{nome}}</h1>
+        </header>
+        
+        <div>
+            
+            {{#if erro}}
+                <div class="error-box">Erro! {{erro}}</div>
+            {{/if}}
+
+            <h3>Adicionar Novo Amigo</h3>
+            <form action="/user/amigos/adicionar" method="POST">
+                <input type="hidden" name="id" value="{{id}}">
+                <input type="text" name="nomeAmigo" placeholder="Nome do usuário..." required>
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+
+        <div>
+            {{#each amigos}}
+            <div class="friend-card">
+                <div class="friend-info">
+                    <img src="/img/{{this.pfp}}.png" alt="PFP">
+                    <div>
+                        <strong>
+                            {{#if this.nickname}}
+                                {{this.nickname}}
+                            {{else}}
+                                {{this.nomeOriginal}}
+                            {{/if}}
+                        </strong>
+                        <br>
+                        <small>@{{this.nomeOriginal}}</small>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <form action="/user/amigos/apelido" method="POST" class="nickname-form">
+                        <input type="hidden" name="id" value="{{../id}}">
+                        <input type="hidden" name="idAmigo" value="{{this.idAmigo}}">
+                        <input type="text" name="nickname" placeholder="Apelido..." value="{{this.nickname}}">
+                        <button type="submit" title="Salvar Apelido">Salvar</button>
+                    </form>
+
+                    <form action="/user/amigos/remover" method="POST">
+                        <input type="hidden" name="id" value="{{../id}}">
+                        <input type="hidden" name="idAmigo" value="{{this.idAmigo}}">
+                        <button type="submit">Desfazer Amizade</button>
+                    </form>
+                </div>
+            </div>
+            {{else}}
+                <p>Você ainda não adicionou ninguém.</p>
+            {{/each}}
+        </div>
+
+        <br>
+        <button><a href="/user?id={{id}}">⬅ Voltar para Perfil</a></button>
+      </div>
+    </div>
+  </body>
+</html>
