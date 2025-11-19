@@ -10,11 +10,29 @@ O objetivo é simular o sistema de cadastramento e gestão de usuários, jogos e
 
 O sistema inclui as seguintes funcionalidades:
 
-* 👤 **Sistema de Cadastramento e Gestão de Usuários:** Permite o registro e o gerenciamento das contas dos usuários.
-* 🤝 **Sistema de Amizade:** Usuários podem enviar, aceitar e gerenciar solicitações de amizade.
-* 🛒 **Compra de Jogos:** Funcionalidade para adquirir novos jogos na loja.
-* 📚 **Biblioteca de Jogos:** Cada usuário possui sua própria biblioteca com os jogos comprados.
-* ➕ **E mais!** (Detalhes adicionais serão incluídos conforme o desenvolvimento.)
+## 👤 **Sistema de Cadastramento e Gestão de Usuários:** Permite o registro e o gerenciamento das contas dos usuários.
+
+* Crud
+* Criar conta
+* atualizar dados da conta
+* deletar conta
+* e mostrar dados da conta
+ 
+## 🤝 **Sistema de Amizade:** Usuários podem enviar, aceitar e gerenciar solicitações de amizade.
+
+* Crud:
+* Criar amigos (adicionar)
+* ver conta do amigo
+* atualizar o amigo (apelido)
+* deletar amigo (desfazer amizade)
+  
+## 📚 **Biblioteca de Jogos:** Cada usuário possui sua própria biblioteca com os jogos comprados.
+
+* Crud:
+* Criar jogos (comprar)
+* ver o jogo comprado
+* atualizar dados do jogo (apelido)
+* deletar jogo (reembolso)
 
 ## 💻 Tecnologias Utilizadas
 
