@@ -41,6 +41,23 @@ function getUserById(id) {
   return users.find((u) => u.id == id);
 }
 
+// Função para obter detalhes dos amigos
+function getFriendsDetails(userAmigos, allUsers) {
+  return userAmigos
+    .map((amigoRelacao) => {
+      const dadosAmigo = allUsers.find((u) => u.id === amigoRelacao.id);
+      if (dadosAmigo) {
+        return {
+          idAmigo: dadosAmigo.id,
+          nomeOriginal: dadosAmigo.nome,
+          pfp: dadosAmigo.pfp,
+          nickname: amigoRelacao.nickname,
+        };
+      }
+    })
+    .filter((a) => a !== undefined);
+}
+
 app.get("/", (req, res) => {
   const { id } = req.query;
   const user = getUserById(id);
@@ -76,13 +93,24 @@ app.post("/cadastro/novo", (req, res) => {
 
 app.get("/user", (req, res) => {
   const { id } = req.query;
-  const user = getUserById(id);
+  const users = getUsers();
+  const user = users.find((u) => u.id == id);
 
   if (user) {
-    const maisde0amg = user.amigos.length > 0;
     const maisde0Jogos = user.biblioteca.length > 0;
 
-    res.render("UserPage", { nome: user.nome, pfp: user.pfp, id: user.id, biblioteca: user.biblioteca, amigos: user.amigos, maisde0amg, maisde0Jogos});
+    const listaAmigosDetalhada = getFriendsDetails(user.amigos, users);
+    const maisde0amg = listaAmigosDetalhada.length > 0;
+
+    res.render("UserPage", {
+      nome: user.nome,
+      pfp: user.pfp,
+      id: user.id,
+      biblioteca: user.biblioteca,
+      amigos: listaAmigosDetalhada,
+      maisde0amg,
+      maisde0Jogos,
+    });
   } else {
     res.redirect("/");
   }
@@ -90,6 +118,98 @@ app.get("/user", (req, res) => {
 
 app.get("/disconnect", (req, res) => {
   res.render("homePage");
+});
+
+app.get("/user/amigos", (req, res) => {
+  const { id, erro } = req.query;
+  const users = getUsers();
+  const user = users.find((u) => u.id == id);
+
+  if (user) {
+    const listaAmigosDetalhada = getFriendsDetails(user.amigos, users);
+
+    res.render("amigosPage", {
+      id: user.id,
+      nome: user.nome,
+      pfp: user.pfp,
+      amigos: listaAmigosDetalhada,
+      erro: erro, // Passa o erro para o Handlebars
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+app.post("/user/amigos/adicionar", (req, res) => {
+  const { id, nomeAmigo } = req.body;
+  const users = getUsers();
+
+  const userIndex = users.findIndex((u) => u.id == id);
+  const amigoEncontrado = users.find(
+    (u) => u.nome.toLowerCase() === nomeAmigo.toLowerCase()
+  );
+
+  if (userIndex === -1) return res.redirect("/");
+
+  if (!amigoEncontrado) {
+    return res.redirect(
+      `/user/amigos?id=${id}&erro=Usuário não encontrado! Verifique o nome.`
+    );
+  }
+
+  if (amigoEncontrado.id == id) {
+    return res.redirect(
+      `/user/amigos?id=${id}&erro=Você não pode adicionar a si mesmo!`
+    );
+  }
+
+  const jaEhAmigo = users[userIndex].amigos.find(
+    (a) => a.id === amigoEncontrado.id
+  );
+  if (jaEhAmigo) {
+    return res.redirect(
+      `/user/amigos?id=${id}&erro=Esse usuário já está na sua lista!`
+    );
+  }
+
+  users[userIndex].amigos.push({
+    id: amigoEncontrado.id,
+    nickname: "",
+  });
+
+  saveUsers(users);
+  res.redirect(`/user/amigos?id=${id}`);
+});
+
+app.post("/user/amigos/apelido", (req, res) => {
+  const { id, idAmigo, nickname } = req.body;
+  const users = getUsers();
+  const userIndex = users.findIndex((u) => u.id == id);
+
+  if (userIndex !== -1) {
+    const amigoIndex = users[userIndex].amigos.findIndex(
+      (a) => a.id == idAmigo
+    );
+    if (amigoIndex !== -1) {
+      users[userIndex].amigos[amigoIndex].nickname = nickname;
+      saveUsers(users);
+    }
+  }
+  res.redirect(`/user/amigos?id=${id}`);
+});
+
+app.post("/user/amigos/remover", (req, res) => {
+  const { id, idAmigo } = req.body;
+  const users = getUsers();
+  const userIndex = users.findIndex((u) => u.id == id);
+
+  if (userIndex !== -1) {
+    users[userIndex].amigos = users[userIndex].amigos.filter(
+      (a) => a.id != idAmigo
+    );
+    saveUsers(users);
+  }
+  res.redirect(`/user/amigos?id=${id}`);
 });
 
 app.get("/user/atualizar", (req, res) => {
@@ -133,13 +253,13 @@ app.get("/user/deletar", (req, res) => {
   const users = getUsers();
   const index = users.findIndex((u) => u.id === Number(id));
   if (index !== -1) {
-    users.splice(index, 1)
+    users.splice(index, 1);
     saveUsers(users);
-    res.redirect("/login")
-  } else{
-      res.redirect("/");
-    };
-  });
+    res.redirect("/login");
+  } else {
+    res.redirect("/");
+  }
+});
 
 app.get("/login", (req, res) => res.render("LoginUser"));
 
@@ -179,23 +299,23 @@ app.get("/game", (req, res) => {
 
 app.post("/game/comprar", (req, res) => {
   const { idgames, id } = req.body;
-  
+
   const games = getGames();
   const users = getUsers();
 
-  const userIndex = users.findIndex(u => u.id == id);
+  const userIndex = users.findIndex((u) => u.id == id);
   if (userIndex === -1) {
     return res.status(404).send({ message: "Usuário não encontrado." });
   }
 
   const user = users[userIndex];
 
-  const jogo = games.find(g => g.idgames === Number(idgames));
+  const jogo = games.find((g) => g.idgames === Number(idgames));
   if (!jogo) {
     return res.status(404).send({ message: "Jogo não encontrado." });
   }
 
-  const jatem = user.biblioteca.find(j => j.idgames === Number(idgames));
+  const jatem = user.biblioteca.find((j) => j.idgames === Number(idgames));
   if (jatem) {
     return res.status(400).send({ message: "Jogo já comprado." });
   }
@@ -204,7 +324,7 @@ app.post("/game/comprar", (req, res) => {
     idgames: jogo.idgames,
     gameName: jogo.gameName,
     gamePrice: jogo.gamePrice,
-    gameImg: jogo.gameImg 
+    gameImg: jogo.gameImg,
   });
 
   saveUsers(users);
