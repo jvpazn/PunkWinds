@@ -14,69 +14,76 @@
       <h1>Seja bem vindo novamente, {{nome}}</h1>
     </header>
 
-  <main>
-    <div id="firstColumn">
-    <a href="/?id={{id}}">Home</a>
-    <a href="/">Desconectar</a>
-    <a href="/user/atualizar/?id={{id}}">Atualizar Dados</a>
-    <a href="/user/deletar/?id={{id}}" id="Verificacao">Deletar conta</a>
-    </div>
+    <main>
+      <div id="firstColumn">
+        <a href="/?id={{id}}">Home</a>
+        <a href="/">Desconectar</a>
+        <a href="/user/atualizar/?id={{id}}">Atualizar Dados</a>
+        <a href="/user/deletar/?id={{id}}" id="Verificacao">Deletar conta</a>
+      </div>
 
-    <div id="secondColumn">
-      <h2>Lista de Amigos ({{amigos.length}})</h2>
-      {{#if maisde0amg}}
-      <p>placeholder</p>
-      {{else}}
-      <p>Você Não possui amigos! Hora de fazer alguns!</p>
-      {{/if}}
+      <div id="secondColumn">
+        <h2>Lista de Amigos ({{amigos.length}})</h2>
 
-    </div>
-    <div id="thirdColumn">
-      <h2>Lista de Jogos ({{biblioteca.length}})</h2>
-      {{#if maisde0Jogos}}
-        {{#each biblioteca}}
-        <div class="Game">
-          <img src="/img/{{gameImg}}.png"/>
-          <h2>{{gameName}}</h2>
-        </div>
-        
-        {{/each}}
-      {{else}}
-      <p>Você Não possui nenhum Jogo! Hora de Gastar!!!</p>
-      {{/if}}
-    </div>
+        <button
+          class="btn-gerenciar"
+          onclick="window.location.href='/user/amigos?id={{id}}'"
+        >
+          Gerenciar Amigos
+        </button>
 
-  </main>
+        {{#if maisde0amg}}
+          <div class="friend-mini-list">
+            {{#each amigos}}
+              <div class="friend-mini-card">
+                <img
+                  src="/img/{{this.pfp}}.png"
+                  class="friend-mini-pfp"
+                  alt="pfp"
+                />
+                <span class="friend-mini-name">
+                  {{#if this.nickname}}
+                    {{this.nickname}}
+                  {{else}}
+                    {{this.nomeOriginal}}
+                  {{/if}}
+                </span>
+              </div>
+            {{/each}}
+          </div>
+        {{else}}
+          <p>Você Não possui amigos! Hora de fazer alguns!</p>
+        {{/if}}
 
-  <script> 
-    const deleteLink = document.getElementById('Verificacao');
-    let clickedOnce = false;
-    deleteLink.addEventListener('click', function(event) {
-        if (!clickedOnce) {
-            event.preventDefault(); 
+      </div>
+      <div id="thirdColumn">
+        <h2>Lista de Jogos ({{biblioteca.length}})</h2>
+        {{#if maisde0Jogos}}
+          {{#each biblioteca}}
+            <div class="Game">
+              <img src="/img/{{gameImg}}.png" />
+              <h2>{{gameName}}</h2>
+            </div>
 
-            const message = "Tem certeza? Se tiver, pressione novamente\nLembrando: Isso irá deletar TODOS os seus dados";
-            alert(message);
+          {{/each}}
+        {{else}}
+          <p>Você Não possui nenhum Jogo! Hora de Gastar!!!</p>
+        {{/if}}
+      </div>
 
-            clickedOnce = true;
-            deleteLink.textContent = 'CONFIRMAR DELETAR AGORA';
-            deleteLink.style.color = 'red';
-            deleteLink.style.fontWeight = 'bold';
+    </main>
 
-
-            setTimeout(() => {
-                if (clickedOnce) {
-                    clickedOnce = false;
-                    deleteLink.textContent = 'Deletar conta'; 
-                    deleteLink.style.color = ''; 
-                    deleteLink.style.fontWeight = '';
-                }
-            }, 5000); 
-        } else {
-        
-        }
-    });
-</script>
-  </script>
+    <script>
+      const deleteLink = document.getElementById('Verificacao'); let clickedOnce
+      = false; deleteLink.addEventListener('click', function(event) { if
+      (!clickedOnce) { event.preventDefault(); const message = "Tem certeza? Se
+      tiver, pressione novamente\nLembrando: Isso irá deletar TODOS os seus
+      dados"; alert(message); clickedOnce = true; deleteLink.textContent =
+      'CONFIRMAR DELETAR AGORA'; deleteLink.style.color = 'red';
+      deleteLink.style.fontWeight = 'bold'; setTimeout(() => { if (clickedOnce)
+      { clickedOnce = false; deleteLink.textContent = 'Deletar conta';
+      deleteLink.style.color = ''; deleteLink.style.fontWeight = ''; } }, 5000);
+      } else { } });
+    </script>
   </body>
 </html>
