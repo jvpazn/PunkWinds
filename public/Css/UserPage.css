@@ -31,12 +31,35 @@ main{
     width: 100vw;
 }
 
-#firstColumn{
-    width: 20vw;
+#firstColumn {
+    width: 20vw; 
     display: flex;
     flex-direction: column;
-    align-items: center;
-    align-content: center;
+    align-items: center; 
+    gap: 20px; 
+    padding: 20px; 
+}
+
+#firstColumn a {
+    background-color: #4a0867;
+    color: white;
+    text-decoration: none; 
+    text-align: center;
+    border: none;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-family: 'Sedgwick Ave Display', cursive;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 90%; 
+    max-width: 300px; 
+}
+
+#firstColumn a{
+    text-decoration: none;
+    text-align: center;
+    font-size: 40px;
 }
 
 #secondColumn{
@@ -75,4 +98,21 @@ main{
     margin-bottom: 0;
     color: white;
     font-size: 24px;
+}
+
+.btn-gerenciar{
+    background-color: darkgreen;
+    margin-top: 10px;
+    color: white;
+    text-decoration: none; 
+    text-align: center;
+    border: none;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-family: 'Sedgwick Ave Display', cursive;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 60%; 
+    max-width: 300px; 
 }

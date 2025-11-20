@@ -57,7 +57,6 @@
     {{#if maisde0Jogos}}
       {{#each biblioteca}}
         <div class="Game">
-          <!-- Usando 'nickname' se existir para a miniatura -->
           <img src="/img/{{gameImg}}.png" alt="Capa do Jogo"/>
           <h2>
             {{#if this.nickname}}
@@ -85,13 +84,11 @@
 <script>
   const deleteLink = document.getElementById('Verificacao'); 
   let clickedOnce = false; 
-  // Substituindo o uso de alert() por uma funcionalidade que apenas muda o texto,
-  // pois alert() é desaconselhado em ambientes de desenvolvimento como este.
+
   deleteLink.addEventListener('click', function(event) { 
   if (!clickedOnce) { 
     event.preventDefault(); 
-    // Mensagem de confirmação que seria exibida em um modal ou mensagem customizada (aqui, apenas no console)
-    console.log("Tem certeza? Se tiver, pressione novamente. Lembrando: Isso irá deletar TODOS os seus dados"); 
+    alert("Tem certeza? Se tiver, pressione novamente. Lembrando: Isso irá deletar TODOS os seus dados"); 
     clickedOnce = true; 
     deleteLink.textContent = 'CONFIRMAR DELETAR AGORA'; 
     deleteLink.style.color = 'red';

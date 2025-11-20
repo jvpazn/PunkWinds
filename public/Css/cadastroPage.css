@@ -106,3 +106,57 @@ form input{
     width: 500px;
     height: 500px;
 }
+
+form button{
+    background-color: green;
+    color: white;
+    text-decoration: none; 
+    text-align: center;
+    border: none;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-family: 'Sedgwick Ave Display', cursive;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 90%; 
+    max-width: 300px; 
+    margin-top: 5px;
+}
+
+.btn-gerenciar{
+    background-color: darkgreen;
+    margin-top: 10px;
+    color: white;
+    text-decoration: none; 
+    text-align: center;
+    border: none;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-family: 'Sedgwick Ave Display', cursive;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 20%;  
+}
+
+.btn-gerenciar-2{
+    background-color: darkgreen;
+    margin-top: 10px;
+    color: white;
+    text-decoration: none; 
+    text-align: center;
+    border: none;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-family: 'Sedgwick Ave Display', cursive;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 40%;  
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}

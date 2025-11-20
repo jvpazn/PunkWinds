@@ -31,7 +31,6 @@
                 <img src="/img/{{this.gameImg}}.png" alt="Capa do Jogo: {{this.gameName}}">
                 <div>
                     <strong>
-                        <!-- Exibe o Apelido se existir, senão o Nome Original -->
                         {{#if this.nickname}}
                             {{this.nickname}}
                         {{else}}
@@ -39,7 +38,6 @@
                         {{/if}}
                     </strong>
                     <br>
-                    <!-- Nome original e detalhes -->
                     <small>@{{this.gameName}}</small>
                     <br>
                     <small>
@@ -49,8 +47,7 @@
                 </div>
             </div>
 
-            <div class="actions">
-                <!-- Formulário de Apelido (Nickname) -->
+            <div>
                 <form action="/user/games/apelidar" method="POST" class="nickname-form">
                     <input type="hidden" name="id" value="{{../id}}">
                     <input type="hidden" name="idJogo" value="{{this.idgames}}">
@@ -58,7 +55,6 @@
                     <button type="submit" title="Salvar Apelido" class="save-nickname-button">Salvar Apelido</button>
                 </form>
 
-                <!-- Formulário de Remoção -->
                 <form action="/user/games/remover" method="POST">
                     <input type="hidden" name="id" value="{{../id}}">
                     <input type="hidden" name="idJogo" value="{{this.idgames}}">
@@ -72,7 +68,7 @@
     </div>
 
     <br>
-    <button><a href="/user?id={{id}}">⬅ Voltar para Perfil</a></button>
+    <button class="btn-gerenciar-2"><a href="/user?id={{id}}">⬅ Voltar para o Perfil</a></button>
   </div>
 </div>
 

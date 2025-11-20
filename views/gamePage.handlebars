@@ -6,9 +6,10 @@
     />
     <title>{{gameName}}</title>
     <link rel="icon" href="/img/favicon.png" />
-    <link rel="Stylesheet" href="css/cadastroPage.css" />
+    <link rel="Stylesheet" href="css/gamePage.css" />
     </head>
   <body>
+    <main id="Content">
     <img src="/img/{{gameImg}}.png" />
     <p>{{gameName}}</p>
     {{#unless gamePrice}}
@@ -65,6 +66,7 @@
       </button>
     {{/unless}}
     </form>
-    
+    <button id="botao"><a href="/?id={{id}}">Voltar</a></button>
+    </main>
     </body>
 </html>
