@@ -1,3 +1,7 @@
+body{
+    background-color: #4a0867;
+}
+
 #flexCenter{
     display: flex;
     flex-direction: row;
