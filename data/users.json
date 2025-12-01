@@ -36,7 +36,7 @@
         "gameName": "My lovely Furmate",
         "gamePrice": 62.1,
         "gameImg": "MyLovelyFurmate",
-        "nickname": "1000horas de Gameplay"
+        "nickname": "1000 horas de Gameplay"
       },
       {
         "idgames": 4,
@@ -49,6 +49,34 @@
         "gameName": "Limbus company : Xichun Training Simulator",
         "gamePrice": 0,
         "gameImg": "XichunTrainSim",
+        "nickname": ""
+      },
+      {
+        "idgames": 1,
+        "gameName": "JojoLands: All-Star Battle",
+        "gamePrice": 44.99,
+        "gameImg": "JojoLandsAllStarBattle",
+        "nickname": ""
+      },
+      {
+        "idgames": 3,
+        "gameName": "Mob psycho 100 showdown",
+        "gamePrice": 59.99,
+        "gameImg": "Mob100psychicShowdown",
+        "nickname": ""
+      },
+      {
+        "idgames": 6,
+        "gameName": "Sisyphus Simulator",
+        "gamePrice": 9.99,
+        "gameImg": "SisyphusSim",
+        "nickname": ""
+      },
+      {
+        "idgames": 7,
+        "gameName": "Deltarune 2",
+        "gamePrice": 74.99,
+        "gameImg": "deltarune2",
         "nickname": ""
       }
     ],
