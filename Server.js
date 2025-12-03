@@ -16,71 +16,69 @@ app.use(express.urlencoded({ extended: true }));
 app.engine("handlebars", exphbs.engine({ defaultLayout: false }));
 app.set("view engine", "handlebars");
 
-const gamesFilePath = path.join(__dirname, "data", "games.json");
-const usersFilePath = path.join(__dirname, "data", "users.json");
+const Games = [
+  {
+    idgames: 1,
+    gameName: "JojoLands: All-Star Battle",
+    gamePrice: 44.99,
+    gameImg: "JojoLandsAllStarBattle"
+  },
+  {
+    idgames: 2,
+    gameName: "My lovely Furmate",
+    gamePrice: 62.1,
+    gameImg: "MyLovelyFurmate"
+  },
+  {
+    idgames: 3,
+    gameName: "Mob psycho 100 showdown",
+    gamePrice: 59.99,
+    gameImg: "Mob100psychicShowdown"
+  },
+  {
+    idgames: 4,
+    gameName: "歴史の怒り ~ Touhou Irreversible Fate",
+    gamePrice: 19.99,
+    gameImg: "TouhouIF"
+  },
+  {
+    idgames: 5,
+    gameName: "Limbus company : Xichun Training Simulator",
+    gamePrice: 0,
+    gameImg: "XichunTrainSim"
+  },
+  {
+    idgames: 6,
+    gameName: "Sisyphus Simulator",
+    gamePrice: 9.99,
+    gameImg: "SisyphusSim"
+  },
+  {
+    idgames: 7,
+    gameName: "Deltarune 2",
+    gamePrice: 74.99,
+    gameImg: "deltarune2"
+  }
+];
+
 
 async function populateDatabase() {
     try {
         if (!await Game.count()) {
-            const gamesData = JSON.parse(fs.readFileSync(gamesFilePath, 'utf8'));
-            await Game.bulkCreate(gamesData.map(g => ({
+            
+            await Game.bulkCreate(Games.map(g => ({
                 id: g.idgames,
                 gameName: g.gameName,
                 gamePrice: g.gamePrice,
                 gameImg: g.gameImg
             })));
+
             console.log("Jogos populados com sucesso.");
-        }
-
-        if (!await User.count()) {
-            const usersData = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
-            for (const userData of usersData) {
-                const user = await User.create({
-                    id: userData.id,
-                    nome: userData.nome,
-                    senha: userData.senha,
-                    idade: userData.idade,
-                    pfp: userData.pfp
-                });
-
-                for (const item of userData.biblioteca) {
-                    await UserGame.create({
-                        UserId: user.id,
-                        GameId: item.idgames,
-                        nickname: item.nickname || ''
-                    });
-                }
-            }
-            
-            for (const userData of usersData) {
-                const user = await User.findByPk(userData.id);
-                if (user) {
-                    for (const friendRel of userData.amigos) {
-                        const existingFriendship = await Friendship.findOne({
-                            where: {
-                                UserId: user.id,
-                                FriendId: friendRel.id
-                            }
-                        });
-                        
-                        if (!existingFriendship) {
-                            await Friendship.create({
-                                UserId: user.id,
-                                FriendId: friendRel.id,
-                                nickname: friendRel.nickname || ''
-                            });
-                        }
-                    }
-                }
-            }
-            console.log("Usuários, Bibliotecas e Amizades populados com sucesso.");
         }
     } catch (error) {
         console.error("Erro ao popular o banco de dados:", error);
     }
 }
-
-
 
 app.get("/", async (req, res) => {
     try {
