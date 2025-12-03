@@ -20,6 +20,46 @@
     <a href="/">Desconectar</a>
     <a href="/user/atualizar/?id={{id}}">Atualizar Dados</a>
     <a href="/user/deletar/?id={{id}}" id="Verificacao">Deletar conta</a>
+    <hr style="width: 100%; margin: 20px 0;">
+  
+  <h3>Meus Métodos de Pagamento</h3>
+  <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+      
+      {{#each metodosPagamento}} <div style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px; color: white;">
+          <strong>{{this.apelido}}</strong><br>
+          <small>{{this.tipo}} - {{this.detalhes}}</small>
+          
+          <div style="margin-top: 5px; display: flex; gap: 5px;">
+             <form action="/user/pagamento/remover" method="POST" style="margin:0;">
+                 <input type="hidden" name="id" value="{{../id}}">
+                 <input type="hidden" name="idPagamento" value="{{this.id}}">
+                 <button type="submit" style="background: red; font-size: 12px; padding: 2px 5px; width: auto;">Excluir</button>
+             </form>
+             
+             <form action="/user/pagamento/editar" method="POST" style="margin:0; display:flex;">
+                 <input type="hidden" name="id" value="{{../id}}">
+                 <input type="hidden" name="idPagamento" value="{{this.id}}">
+                 <input type="text" name="novoApelido" placeholder="Novo apelido" required style="width: 80px; height: 20px; font-size: 10px;">
+                 <button type="submit" style="background: blue; font-size: 12px; padding: 2px 5px; width: auto;">OK</button>
+             </form>
+          </div>
+      </div>
+      {{/each}}
+
+      <h4 style="color: white; margin-top: 10px;">Adicionar Novo:</h4>
+      <form action="/user/pagamento/adicionar" method="POST" style="display: flex; flex-direction: column; gap: 5px;">
+          <input type="hidden" name="id" value="{{id}}">
+          <select name="tipo" style="height: 30px;">
+              <option value="Cartão de Crédito">Cartão de Crédito</option>
+              <option value="Cartão de Débito">Cartão de Débito</option>
+              <option value="Pix">Pix</option>
+              <option value="PayPal">PayPal</option>
+          </select>
+          <input type="text" name="apelido" placeholder="Apelido" required style="height: 30px;">
+          <input type="text" name="detalhes" placeholder="Detalhes" required style="height: 30px;">
+          <button type="submit" style="background: green; width: 100%; font-size: 16px;">Adicionar</button>
+      </form>
+  </div>
   </div>
 
   <div id="secondColumn">
@@ -54,6 +94,11 @@
   
   <div id="thirdColumn">
     <h2>Lista de Jogos ({{biblioteca.length}})</h2>
+    
+    <button class="btn-gerenciar" onclick="window.location.href='/user/addGame?id={{id}}'" style="background-color: purple; margin-bottom: 15px;">
+      + Adicionar Jogo Não-PunkWinds
+    </button>
+
     {{#if maisde0Jogos}}
       {{#each biblioteca}}
         <div class="Game">
@@ -68,14 +113,44 @@
         </div>
       {{/each}}
     {{else}}
-      <p>Você Não possui nenhum Jogo! Hora de Gastar!!!</p>
+      <p>Você Não possui nenhum Jogo da Loja!</p>
+    {{/if}}
+
+    {{#if maisde0Custom}}
+        <hr style="width: 100%; border: 1px dashed white; margin: 20px 0;">
+        <h3 style="color: white;">Jogos Adicionados por Mim</h3>
+        
+        {{#each customGames}}
+        <div class="Game" style="border-color: purple;">
+            <img src="{{this.gameImg}}" alt="Capa Custom" style="object-fit: cover;">
+            
+            <div style="display: flex; flex-direction: column; justify-content: center; width: 100%; margin-left: 10px;">
+                <h2 style="font-size: 20px;">{{this.gameName}}</h2>
+                
+                <div style="display: flex; gap: 5px; margin-top: 5px;">
+                    <form action="/user/customGame/editar" method="POST" style="margin:0; display: flex;">
+                        <input type="hidden" name="id" value="{{../id}}">
+                        <input type="hidden" name="idCustomGame" value="{{this.id}}">
+                        <input type="text" name="novoNome" placeholder="Editar nome" style="width: 100px; height: 20px; font-size: 10px;">
+                        <button type="submit" style="background: orange; font-size: 10px; padding: 2px; width: auto;">Edit</button>
+                    </form>
+
+                    <form action="/user/customGame/remover" method="POST" style="margin:0;">
+                        <input type="hidden" name="id" value="{{../id}}">
+                        <input type="hidden" name="idCustomGame" value="{{this.id}}">
+                        <button type="submit" style="background: red; font-size: 10px; padding: 2px 5px; width: auto;">X</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/each}}
     {{/if}}
 
     <button
       class="btn-gerenciar"
       onclick="window.location.href='/user/yourGamePage?id={{id}}'"
     >
-      Gerenciar Jogos
+      Gerenciar Jogos da Loja
     </button>
   </div>
 

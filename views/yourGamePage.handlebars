@@ -65,6 +65,31 @@
         {{else}}
             <p>Sua biblioteca está vazia. Que tal adquirir alguns jogos?</p>
         {{/each}}
+        </div> {{#if customGames.length}}
+        <h2 style="color: white; margin-top: 20px;">Jogos Não-Oficiais</h2>
+        <div>
+            {{#each customGames}}
+            <div class="game-card" style="border-color: purple;">
+                <div class="game-info">
+                    <img src="{{this.gameImg}}" alt="{{this.gameName}}" style="width: 100px; height: 100px; object-fit: cover;">
+                    <div>
+                        <strong>{{this.gameName}}</strong>
+                        <br>
+                        <small>Jogo Adicionado Manualmente</small>
+                    </div>
+                </div>
+                
+                <div>
+                    <form action="/user/customGame/remover" method="POST">
+                        <input type="hidden" name="id" value="{{../id}}">
+                        <input type="hidden" name="idCustomGame" value="{{this.id}}">
+                        <button type="submit" class="remove-button" style="background-color: red;">Remover</button>
+                    </form>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    {{/if}}
     </div>
 
     <br>

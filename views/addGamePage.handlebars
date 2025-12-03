@@ -1,0 +1,78 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Adicionar Jogo Não-Steam</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/cadastroPage.css" />
+  </head>
+  <body>
+    <div id="flexCenter">
+      <div id="Column">
+        <header>
+          <h1>Adicionar Jogo à Biblioteca</h1>
+        </header>
+
+        <form action="/user/addGame/novo" method="POST" id="formAddGame">
+          <input type="hidden" name="id" value="{{id}}" />
+
+          <input type="hidden" name="gameImgData" id="hiddenImgData" />
+
+          <div>
+            <label style="color: white; font-size: 20px;">Nome do Jogo:</label><br
+            />
+            <input
+              type="text"
+              name="gameName"
+              placeholder="Ex: Minecraft 2"
+              required
+            />
+          </div>
+
+          <div style="margin-top: 20px;">
+            <label style="color: white; font-size: 20px;">Imagem do PC:</label><br
+            />
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              required
+              style="color: white; font-size: 16px;"
+            />
+          </div>
+
+          <div style="margin-top: 20px;">
+            <img
+              id="imagePreview"
+              src=""
+              style="max-width: 200px; display: none; border: 2px solid green;"
+            />
+          </div>
+
+          <button
+            type="submit"
+            id="IMPORTANTE"
+            style="margin-top: 20px;"
+          >Adicionar à Biblioteca</button>
+        </form>
+
+        <button class="btn-gerenciar"><a
+            href="/user?id={{id}}"
+          >Cancelar</a></button>
+      </div>
+    </div>
+
+    <script>
+      const fileInput = document.getElementById('fileInput'); const hiddenInput
+      = document.getElementById('hiddenImgData'); const preview =
+      document.getElementById('imagePreview');
+      fileInput.addEventListener('change', function(e) { const file =
+      e.target.files[0]; if (file) { const reader = new FileReader();
+      reader.onloadend = function() { const base64String = reader.result;
+      hiddenInput.value = base64String; preview.src = base64String;
+      preview.style.display = 'block'; } reader.readAsDataURL(file); } });
+    </script>
+  </body>
+</html>
