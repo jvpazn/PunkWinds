@@ -21,10 +21,8 @@ const app = express();
 const port = 3000;
 
 app.use(express.static("public"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use(express.json({ limit: "100mb" }));
+app.use(express.urlencoded({ extended: true, limit: "100mb" }));
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: false }));
 app.set("view engine", "handlebars");
@@ -141,12 +139,15 @@ app.get("/user", async (req, res) => {
       gameImg: cg.gameImg,
     }));
 
+    const totalJogos = bibliotecaDetalhada.length + jogosCustomizados.length;
+
     res.render("UserPage", {
       nome: user.nome,
       pfp: user.pfp,
       id: user.id,
       biblioteca: bibliotecaDetalhada,
       amigos: listaAmigosDetalhada,
+      totalJogos: totalJogos,
       metodosPagamento: metodosPagamento,
       customGames: jogosCustomizados,
       maisde0amg: listaAmigosDetalhada.length > 0,
@@ -700,6 +701,15 @@ app.get("/user/addGame", (req, res) => {
 
 app.post("/user/addGame/novo", async (req, res) => {
   const { id, gameName, gameImgData } = req.body;
+
+  console.log("=== DEBUG UPLOAD ===");
+  console.log("Nome do Jogo:", gameName);
+  if (gameImgData) {
+      console.log("Tamanho da Imagem (caracteres):", gameImgData.length);
+      console.log("Início da string:", gameImgData.substring(0, 50));
+  } else {
+      console.log("ERRO: gameImgData está undefined ou vazio!");
+  }
 
   try {
     await CustomGame.create({

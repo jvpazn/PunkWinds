@@ -64,15 +64,51 @@
       </div>
     </div>
 
-    <script>
-      const fileInput = document.getElementById('fileInput'); const hiddenInput
-      = document.getElementById('hiddenImgData'); const preview =
-      document.getElementById('imagePreview');
-      fileInput.addEventListener('change', function(e) { const file =
-      e.target.files[0]; if (file) { const reader = new FileReader();
-      reader.onloadend = function() { const base64String = reader.result;
-      hiddenInput.value = base64String; preview.src = base64String;
-      preview.style.display = 'block'; } reader.readAsDataURL(file); } });
-    </script>
+   <script>
+    const form = document.getElementById('formAddGame');
+    const fileInput = document.getElementById('fileInput');
+    const hiddenInput = document.getElementById('hiddenImgData');
+    const preview = document.getElementById('imagePreview');
+    const btnSubmit = document.getElementById('IMPORTANTE'); // Seu botão de submit
+
+   
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = "Processando imagem...";
+            
+            const reader = new FileReader();
+            
+            reader.onloadend = function() {
+                const base64String = reader.result;
+                
+                
+                hiddenInput.value = base64String;
+                
+             
+                preview.src = base64String;
+                preview.style.display = 'block';
+                
+                
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Adicionar à Biblioteca";
+                
+                console.log("Imagem pronta! Tamanho:", base64String.length);
+            }
+            
+            reader.readAsDataURL(file);
+        }
+    });
+
+    
+    form.addEventListener('submit', function(e) {
+        if (!hiddenInput.value) {
+            e.preventDefault(); 
+            alert("A imagem ainda não foi processada ou não foi selecionada!");
+        }
+    });
+</script>
   </body>
 </html>
