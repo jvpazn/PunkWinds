@@ -116,3 +116,267 @@ main{
     width: 60%; 
     max-width: 300px; 
 }
+
+.payment-required {
+    margin: 20px 0;
+}
+
+.content-separator {
+    width: 100%;
+    border: none;
+    border-top: 1px solid white;
+    margin: 20px 0;
+}
+
+#commentSection {
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.comment-form {
+    margin-bottom: 30px;
+}
+
+.comment-input-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.comment-input {
+    flex-grow: 1;
+}
+
+.comment-send-button {
+    width: auto;
+    background-color: #4a0867;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.comment-card {
+    border-bottom: 1px solid white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-pfp {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0;
+    border: 1px solid white;
+}
+
+.comment-text {
+    margin: 5px 0 10px 50px;
+    font-size: 20px;
+}
+
+.comment-actions {
+    margin-left: 50px;
+    display: flex;
+    gap: 10px;
+}
+
+.action-form {
+    margin: 0;
+    width: auto;
+}
+
+.edit-form {
+    display: flex;
+    gap: 5px;
+}
+
+.delete-button {
+    background-color: red;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: orange;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-input {
+    height: 30px;
+    font-size: 14px;
+}
+
+.separator-bar {
+    width: 100%;
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid white;
+}
+
+.payment-methods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.payment-card {
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.payment-actions {
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+}
+
+.action-form {
+    margin: 0;
+}
+
+.edit-payment-form {
+    display: flex;
+}
+
+.edit-input-sm {
+    width: 80px;
+    height: 20px;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: none;
+}
+
+.delete-button-sm {
+    background: red;
+    font-size: 12px;
+    padding: 2px 5px;
+    width: auto;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.edit-button-sm {
+    background: blue;
+    font-size: 12px;
+    padding: 2px 5px;
+    width: auto;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.payment-add-title {
+    color: white;
+    margin-top: 10px;
+}
+
+.add-method-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.add-method-select {
+    height: 30px;
+}
+
+.add-method-input {
+    height: 30px;
+}
+
+.add-method-button {
+    background: green;
+    width: 100%;
+    font-size: 16px;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-game-button {
+    background-color: purple;
+    margin-bottom: 15px;
+}
+
+.custom-game-separator {
+    width: 100%;
+    border: none;
+    border-top: 1px dashed white;
+    margin: 20px 0;
+}
+
+.custom-game-title {
+    color: white;
+}
+
+.custom-game-card {
+    border-color: purple;
+}
+
+.custom-game-img {
+    object-fit: cover;
+}
+
+.custom-game-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.custom-game-name {
+    font-size: 20px;
+}
+
+.custom-game-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.edit-game-form {
+    display: flex;
+}
+
+.edit-game-button {
+    background: orange;
+    font-size: 10px;
+    padding: 2px;
+    width: auto;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}

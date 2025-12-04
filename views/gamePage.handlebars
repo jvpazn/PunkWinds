@@ -10,84 +10,112 @@
   </head>
   <body>
     <main id="Content">
-    <img src="/img/{{gameImg}}.png" />
-    <p>{{gameName}}</p>
-    
-    {{#unless gamePrice}}
-        <p>Grátis</p>
-    {{else}}
-        <p>R$ {{gamePrice}}</p>
-    {{/unless}}
-
-    <form action="/game/comprar" method="POST">
-      <input type="hidden" name="idgames" value="{{idgames}}">
-      <input type="hidden" name="id" value="{{id}}">
+      <img src="/img/{{gameImg}}.png" class="game-image" />
+      <p class="game-name">{{gameName}}</p>
 
       {{#unless gamePrice}}
-            <button type="submit" id="buyButton">Adquirir Jogo</button>
+      <p class="game-price free">Grátis</p>
       {{else}}
-            <p style="margin: 20px 0;">Este item requer pagamento.</p>
-            
-            <button type="button" id="buyButton" onclick="window.location.href='/comprar?idgames={{idgames}}&id={{id}}'">
-                Ir para Pagamento
-            </button>
+      <p class="game-price paid">R$ {{gamePrice}}</p>
       {{/unless}}
-    </form>
 
-    <button id="botao"><a href="/?id={{id}}">Voltar</a></button>
+      <form action="/game/comprar" method="POST" class="buy-form">
+        <input type="hidden" name="idgames" value="{{idgames}}" />
+        <input type="hidden" name="id" value="{{id}}" />
 
-    <hr style="width: 100%; border: 1px solid white; margin: 20px 0;">
+        {{#unless gamePrice}}
+        <button type="submit" id="buyButton">Adquirir Jogo</button>
+        {{else}}
+        <p class="payment-required">Este item requer pagamento.</p>
 
-    <div style="width: 80%; background-color: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px;">
+        <button
+          type="button"
+          id="buyButton"
+          onclick="window.location.href='/comprar?idgames={{idgames}}&id={{id}}'"
+        >
+          Ir para Pagamento
+        </button>
+        {{/unless}}
+      </form>
+
+      <button id="botao" class="back-button">
+        <a href="/?id={{id}}">Voltar</a>
+      </button>
+
+      <hr class="content-separator" />
+
+      <div id="commentSection">
         <h2>Comentários</h2>
 
         {{#if nome}}
-        <form action="/game/comentar" method="POST" style="margin-bottom: 30px;">
-            <input type="hidden" name="id" value="{{id}}">
-            <input type="hidden" name="idgames" value="{{idgames}}">
-            <div style="display:flex; gap: 10px; width: 100%;">
-                <input type="text" name="texto" placeholder="Escreva seu comentário..." required style="flex-grow: 1;">
-                <button type="submit" style="width: auto; background-color: #4a0867;">Enviar</button>
-            </div>
+        <form action="/game/comentar" method="POST" class="comment-form">
+          <input type="hidden" name="id" value="{{id}}" />
+          <input type="hidden" name="idgames" value="{{idgames}}" />
+          <div class="comment-input-group">
+            <input
+              type="text"
+              name="texto"
+              placeholder="Escreva seu comentário..."
+              required
+              class="comment-input"
+            />
+            <button type="submit" class="comment-send-button">Enviar</button>
+          </div>
         </form>
         {{else}}
         <p>Faça login para comentar!</p>
         {{/if}}
 
         {{#each comentarios}}
-        <div style="border-bottom: 1px solid white; padding: 10px; display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 10px;">
-            
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <img src="/img/{{this.pfpAutor}}.png" alt="PFP" style="width: 40px; height: 40px; border-radius: 50%; margin: 0; border: 1px solid white;">
-                <strong>{{this.nomeAutor}}</strong> says:
-            </div>
-            
-            <p style="margin: 5px 0 10px 50px; font-size: 20px;">{{this.texto}}</p>
+        <div class="comment-card">
+          <div class="comment-header">
+            <img
+              src="/img/{{this.pfpAutor}}.png"
+              alt="PFP"
+              class="comment-pfp"
+            />
+            <strong>{{this.nomeAutor}}</strong> says:
+          </div>
 
-            {{#if this.eDono}}
-            <div style="margin-left: 50px; display: flex; gap: 10px;">
-                
-                <form action="/game/comentar/deletar" method="POST" style="margin: 0; width: auto;">
-                    <input type="hidden" name="id" value="{{../id}}">
-                    <input type="hidden" name="idgames" value="{{../idgames}}">
-                    <input type="hidden" name="idComentario" value="{{this.idComentario}}">
-                    <button type="submit" style="background-color: red; padding: 5px 10px; font-size: 14px;">Deletar</button>
-                </form>
+          <p class="comment-text">{{this.texto}}</p>
 
-                <form action="/game/comentar/editar" method="POST" style="margin: 0; display: flex; gap: 5px;">
-                    <input type="hidden" name="id" value="{{../id}}">
-                    <input type="hidden" name="idgames" value="{{../idgames}}">
-                    <input type="hidden" name="idComentario" value="{{this.idComentario}}">
-                    <input type="text" name="novoTexto" placeholder="Editar texto..." required style="height: 30px; font-size: 14px;">
-                    <button type="submit" style="background-color: orange; padding: 5px 10px; font-size: 14px;">Atualizar</button>
-                </form>
-            </div>
-            {{/if}}
+          {{#if this.eDono}}
+          <div class="comment-actions">
+            <form action="/game/comentar/deletar" method="POST" class="action-form">
+              <input type="hidden" name="id" value="{{../id}}" />
+              <input type="hidden" name="idgames" value="{{../idgames}}" />
+              <input
+                type="hidden"
+                name="idComentario"
+                value="{{this.idComentario}}"
+              />
+              <button type="submit" class="delete-button">Deletar</button>
+            </form>
+
+            <form action="/game/comentar/editar" method="POST" class="action-form edit-form">
+              <input type="hidden" name="id" value="{{../id}}" />
+              <input type="hidden" name="idgames" value="{{../idgames}}" />
+              <input
+                type="hidden"
+                name="idComentario"
+                value="{{this.idComentario}}"
+              />
+              <input
+                type="text"
+                name="novoTexto"
+                placeholder="Editar texto..."
+                required
+                class="edit-input"
+              />
+              <button type="submit" class="edit-button">Atualizar</button>
+            </form>
+          </div>
+          {{/if}}
         </div>
         {{else}}
-            <p>Nenhum comentário ainda. Seja o primeiro!</p>
+        <p>Nenhum comentário ainda. Seja o primeiro!</p>
         {{/each}}
-    </div>
-    </main>
-    </body>
+      </div>
+      </main>
+  </body>
 </html>

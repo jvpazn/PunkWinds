@@ -2,37 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/img/favicon.png" />
     <title>Finalizar Compra - {{game.gameName}}</title>
     <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/gamePage.css"> </head>
+    <link rel="stylesheet" href="/css/gamePage.css"> 
+</head>
 <body>
-    <main id="Content" style="margin-top: 50px;">
+    <main id="Content" class="main-content">
         <h1>Checkout</h1>
         
-        <div style="border: 2px solid white; padding: 20px; margin-bottom: 20px; text-align: center;">
-            <img src="/img/{{game.gameImg}}.png" style="width: 200px; height: auto;">
+        <div class="checkout-summary">
+            <img src="/img/{{game.gameImg}}.png" class="game-img">
             <h2>{{game.gameName}}</h2>
-            <p style="color: green; font-size: 30px;">Total: R$ {{game.gamePrice}}</p>
+            <p class="price-total">Total: R$ {{game.gamePrice}}</p>
         </div>
 
-        <div style="width: 100%; max-width: 600px;">
+        <div class="payment-container">
             <h3>Escolha seu método de pagamento:</h3>
 
             {{#if temMetodos}}
-                <form action="/comprar/finalizar" method="POST">
+                <form action="/comprar/finalizar" method="POST" class="payment-form">
                     <input type="hidden" name="id" value="{{id}}">
                     <input type="hidden" name="idgames" value="{{game.id}}">
 
-                    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                    <div class="method-list">
                         {{#each metodos}}
-                        <label style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; cursor: pointer; display: flex; align-items: center;">
-                            <input type="radio" name="idPagamento" value="{{this.id}}" required style="width: auto; margin-right: 10px;">
+                        <label class="method-label">
+                            <input type="radio" name="idPagamento" value="{{this.id}}" required class="method-radio">
                             <span>
                                 <strong>{{this.apelido}}</strong> 
                                 <small>({{this.tipo}} - {{this.detalhes}})</small>
                             </span>
                             
-                            <button form="form-remove-{{this.id}}" style="margin-left: auto; background: red; font-size: 10px; width: auto; padding: 2px 5px;">X</button>
+                            <button form="form-remove-{{this.id}}" class="remove-button">X</button>
                         </label>
                         {{/each}}
                     </div>
@@ -41,7 +43,7 @@
                 </form>
 
                 {{#each metodos}}
-                <form id="form-remove-{{this.id}}" action="/user/pagamento/remover" method="POST" style="display: none;">
+                <form id="form-remove-{{this.id}}" action="/user/pagamento/remover" method="POST" class="remove-form">
                     <input type="hidden" name="id" value="{{../id}}">
                     <input type="hidden" name="idPagamento" value="{{this.id}}">
                     <input type="hidden" name="idgames" value="{{../game.id}}">
@@ -53,10 +55,10 @@
                 <p>Você não possui métodos de pagamento salvos.</p>
             {{/if}}
 
-            <hr style="margin: 20px 0;">
+            <hr class="separator">
 
             <h3>Adicionar Novo Cartão/Método</h3>
-            <form action="/user/pagamento/adicionar" method="POST" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px;">
+            <form action="/user/pagamento/adicionar" method="POST" class="add-method-form">
                 <input type="hidden" name="id" value="{{id}}">
                 <input type="hidden" name="origem" value="comprar">
                 <input type="hidden" name="idgames" value="{{game.id}}">
@@ -81,12 +83,14 @@
                     <input type="text" name="detalhes" required placeholder="**** **** **** 1234">
                 </div>
 
-                <button type="submit" style="background-color: orange; width: 100%;">Salvar e Usar</button>
+                <button type="submit" id="botao-maior">Salvar e Usar</button>
             </form>
         </div>
 
         <br>
-        <a href="/game?idgames={{game.id}}&id={{id}}"><button style="background: gray;">Cancelar</button></a>
+        <a href="/game?idgames={{game.id}}&id={{id}}">
+            <button id="botao-maior">Cancelar</button>
+        </a>
     </main>
 </body>
 </html>

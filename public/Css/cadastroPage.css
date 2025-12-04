@@ -164,3 +164,11 @@ a{
     text-decoration: none;
     color: white;
 }
+
+.letters{
+    font-size: 20px;
+}
+
+#imagePreview{
+    max-width: 300px;
+}

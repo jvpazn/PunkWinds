@@ -225,7 +225,7 @@ app.post("/user/amigos/adicionar", async (req, res) => {
     if (!user) return res.redirect("/");
 
     const amigoEncontrado = await User.findOne({
-      where: { nome: { [Op.iLike]: nomeAmigo } },
+      where: { nome: { [Op.like]: nomeAmigo } },
     });
 
     if (!amigoEncontrado) {

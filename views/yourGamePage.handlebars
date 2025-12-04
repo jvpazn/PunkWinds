@@ -9,93 +9,136 @@
     <link rel="Stylesheet" href="/css/cadastroPage.css" />
   </head>
   <body>
-
-    <div id="flexCenter">
-    <div id="Column">
-    <header>
-    <h1>Biblioteca de Jogos de {{nome}}</h1>
-    </header>
     <div id="flexCenter">
       <div id="Column">
-    {{#if erro}}
-        <div class="error-box">Erro! {{erro}}</div>
-    {{/if}}
-    {{#if sucesso}}
-        <div class="success-box">Sucesso! {{sucesso}}</div>
-    {{/if}}
+        <header>
+          <h1>Biblioteca de Jogos de {{nome}}</h1>
+        </header>
 
-    <div>
-        {{#each jogos}}
-        <div class="game-card">
-            <div class="game-info">
-                <img src="/img/{{this.gameImg}}.png" alt="Capa do Jogo: {{this.gameName}}">
-                <div>
-                    <strong>
-                        {{#if this.nickname}}
-                            {{this.nickname}}
-                        {{else}}
-                            {{this.gameName}}
-                        {{/if}}
-                    </strong>
-                    <br>
-                    <small>@{{this.gameName}}</small>
-                    <br>
-                    <small>
-                        Preço de Compra: R$ {{this.gamePrice}}
-                        | ID: #{{this.idgames}}
-                    </small> 
-                </div>
-            </div>
+        <div id="contentWrapper">
+          <div id="innerColumn">
+            {{#if erro}}
+            <div class="error-box">Erro! {{erro}}</div>
+            {{/if}}
+            {{#if sucesso}}
+            <div class="success-box">Sucesso! {{sucesso}}</div>
+            {{/if}}
 
-            <div>
-                <form action="/user/games/apelidar" method="POST" class="nickname-form">
-                    <input type="hidden" name="id" value="{{../id}}">
-                    <input type="hidden" name="idJogo" value="{{this.idgames}}">
-                    <input type="text" name="nickname" placeholder="Apelido..." value="{{this.nickname}}">
-                    <button type="submit" title="Salvar Apelido" class="save-nickname-button">Salvar Apelido</button>
-                </form>
-
-                <form action="/user/games/remover" method="POST">
-                    <input type="hidden" name="id" value="{{../id}}">
-                    <input type="hidden" name="idJogo" value="{{this.idgames}}">
-                    <button type="submit" class="remove-button" onclick="return confirm('Tem certeza que deseja reembolsar {{this.gameName}} da sua biblioteca?');">Remover Jogo</button>
-                </form>
-            </div>
-        </div>
-        {{else}}
-            <p>Sua biblioteca está vazia. Que tal adquirir alguns jogos?</p>
-        {{/each}}
-        </div> {{#if customGames.length}}
-        <h2 style="color: white; margin-top: 20px;">Jogos Não-Oficiais</h2>
-        <div>
-            {{#each customGames}}
-            <div class="game-card" style="border-color: purple;">
+            <div class="game-list-container">
+              {{#each jogos}}
+              <div class="game-card">
                 <div class="game-info">
-                    <img src="{{this.gameImg}}" alt="{{this.gameName}}" style="width: 100px; height: 100px; object-fit: cover;">
-                    <div>
-                        <strong>{{this.gameName}}</strong>
-                        <br>
-                        <small>Jogo Adicionado Manualmente</small>
-                    </div>
+                  <img
+                    src="/img/{{this.gameImg}}.png"
+                    alt="Capa do Jogo: {{this.gameName}}"
+                    class="game-card-img"
+                  />
+                  <div class="game-details">
+                    <strong>
+                      {{#if this.nickname}} {{this.nickname}} {{else}}
+                      {{this.gameName}} {{/if}}
+                    </strong>
+                    <br />
+                    <small class="original-name"
+                      >@{{this.gameName}}</small
+                    >
+                    <br />
+                    <small class="game-price-id">
+                      Preço de Compra: R$ {{this.gamePrice}} | ID:
+                      #{{this.idgames}}
+                    </small>
+                  </div>
                 </div>
-                
-                <div>
-                    <form action="/user/customGame/remover" method="POST">
-                        <input type="hidden" name="id" value="{{../id}}">
-                        <input type="hidden" name="idCustomGame" value="{{this.id}}">
-                        <button type="submit" class="remove-button" style="background-color: red;">Remover</button>
-                    </form>
+
+                <div class="game-actions">
+                  <form
+                    action="/user/games/apelidar"
+                    method="POST"
+                    class="nickname-form action-form"
+                  >
+                    <input type="hidden" name="id" value="{{../id}}" />
+                    <input type="hidden" name="idJogo" value="{{this.idgames}}" />
+                    <input
+                      type="text"
+                      name="nickname"
+                      placeholder="Apelido..."
+                      value="{{this.nickname}}"
+                      class="nickname-input"
+                    />
+                    <button
+                      type="submit"
+                      title="Salvar Apelido"
+                      class="save-nickname-button"
+                    >
+                      Salvar Apelido
+                    </button>
+                  </form>
+
+                  <form action="/user/games/remover" method="POST" class="action-form">
+                    <input type="hidden" name="id" value="{{../id}}" />
+                    <input type="hidden" name="idJogo" value="{{this.idgames}}" />
+                    <button
+                      type="submit"
+                      class="remove-button official-remove-button"
+                      onclick="return confirm('Tem certeza que deseja reembolsar {{this.gameName}} da sua biblioteca?');"
+                    >
+                      Remover Jogo
+                    </button>
+                  </form>
                 </div>
+              </div>
+              {{else}}
+              <p>Sua biblioteca está vazia. Que tal adquirir alguns jogos?</p>
+              {{/each}}
             </div>
-            {{/each}}
+            {{#if customGames.length}}
+            <h2 class="custom-games-title">Jogos Não-Oficiais</h2>
+            <div class="game-list-container">
+              {{#each customGames}}
+              <div class="game-card custom-game-card">
+                <div class="game-info">
+                  <img
+                    src="{{this.gameImg}}"
+                    alt="{{this.gameName}}"
+                    class="game-card-img"
+                  />
+                  <div class="game-details">
+                    <strong>{{this.gameName}}</strong>
+                    <br />
+                    <small class="custom-game-small"
+                      >Jogo Adicionado Manualmente</small
+                    >
+                  </div>
+                </div>
+
+                <div class="game-actions">
+                  <form action="/user/customGame/remover" method="POST" class="action-form">
+                    <input type="hidden" name="id" value="{{../id}}" />
+                    <input
+                      type="hidden"
+                      name="idCustomGame"
+                      value="{{this.id}}"
+                    />
+                    <button
+                      type="submit"
+                      class="remove-button custom-remove-button"
+                    >
+                      Remover
+                    </button>
+                  </form>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+            {{/if}}
+            </div>
+
+          <br />
+          <button class="btn-gerenciar-2">
+            <a href="/user?id={{id}}">⬅ Voltar para o Perfil</a>
+          </button>
         </div>
-    {{/if}}
+      </div>
     </div>
-
-    <br>
-    <button class="btn-gerenciar-2"><a href="/user?id={{id}}">⬅ Voltar para o Perfil</a></button>
-  </div>
-</div>
-
   </body>
 </html>

@@ -14,171 +14,214 @@
       <h1>Seja bem vindo novamente, {{nome}}</h1>
     </header>
 
-   <main>
-  <div id="firstColumn">
-    <a href="/?id={{id}}">Home</a>
-    <a href="/">Desconectar</a>
-    <a href="/user/atualizar/?id={{id}}">Atualizar Dados</a>
-    <a href="/user/deletar/?id={{id}}" id="Verificacao">Deletar conta</a>
-    <hr style="width: 100%; margin: 20px 0;">
-  
-  <h3>Meus Métodos de Pagamento</h3>
-  <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-      
-      {{#each metodosPagamento}} <div style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px; color: white;">
-          <strong>{{this.apelido}}</strong><br>
-          <small>{{this.tipo}} - {{this.detalhes}}</small>
-          
-          <div style="margin-top: 5px; display: flex; gap: 5px;">
-             <form action="/user/pagamento/remover" method="POST" style="margin:0;">
-                 <input type="hidden" name="id" value="{{../id}}">
-                 <input type="hidden" name="idPagamento" value="{{this.id}}">
-                 <button type="submit" style="background: red; font-size: 12px; padding: 2px 5px; width: auto;">Excluir</button>
-             </form>
-             
-             <form action="/user/pagamento/editar" method="POST" style="margin:0; display:flex;">
-                 <input type="hidden" name="id" value="{{../id}}">
-                 <input type="hidden" name="idPagamento" value="{{this.id}}">
-                 <input type="text" name="novoApelido" placeholder="Novo apelido" required style="width: 80px; height: 20px; font-size: 10px;">
-                 <button type="submit" style="background: blue; font-size: 12px; padding: 2px 5px; width: auto;">OK</button>
-             </form>
-          </div>
-      </div>
-      {{/each}}
+    <main>
+      <div id="firstColumn">
+        <a href="/?id={{id}}">Home</a>
+        <a href="/">Desconectar</a>
+        <a href="/user/atualizar/?id={{id}}">Atualizar Dados</a>
+        <a href="/user/deletar/?id={{id}}" id="Verificacao">Deletar conta</a>
+        <hr class="separator-bar" />
 
-      <h4 style="color: white; margin-top: 10px;">Adicionar Novo:</h4>
-      <form action="/user/pagamento/adicionar" method="POST" style="display: flex; flex-direction: column; gap: 5px;">
-          <input type="hidden" name="id" value="{{id}}">
-          <select name="tipo" style="height: 30px;">
+        <h3>Meus Métodos de Pagamento</h3>
+        <div class="payment-methods-list">
+          {{#each metodosPagamento}}
+          <div class="payment-card">
+            <strong>{{this.apelido}}</strong><br />
+            <small>{{this.tipo}} - {{this.detalhes}}</small>
+
+            <div class="payment-actions">
+              <form action="/user/pagamento/remover" method="POST" class="action-form">
+                <input type="hidden" name="id" value="{{../id}}" />
+                <input
+                  type="hidden"
+                  name="idPagamento"
+                  value="{{this.id}}"
+                />
+                <button type="submit" class="delete-button-sm">
+                  Excluir
+                </button>
+              </form>
+
+              <form action="/user/pagamento/editar" method="POST" class="action-form edit-payment-form">
+                <input type="hidden" name="id" value="{{../id}}" />
+                <input
+                  type="hidden"
+                  name="idPagamento"
+                  value="{{this.id}}"
+                />
+                <input
+                  type="text"
+                  name="novoApelido"
+                  placeholder="Novo apelido"
+                  required
+                  class="edit-input-sm"
+                />
+                <button type="submit" class="edit-button-sm">OK</button>
+              </form>
+            </div>
+          </div>
+          {{/each}}
+
+          <h4 class="payment-add-title">Adicionar Novo:</h4>
+          <form action="/user/pagamento/adicionar" method="POST" class="add-method-form">
+            <input type="hidden" name="id" value="{{id}}" />
+            <select name="tipo" class="add-method-select">
               <option value="Cartão de Crédito">Cartão de Crédito</option>
               <option value="Cartão de Débito">Cartão de Débito</option>
               <option value="Pix">Pix</option>
               <option value="PayPal">PayPal</option>
-          </select>
-          <input type="text" name="apelido" placeholder="Apelido" required style="height: 30px;">
-          <input type="text" name="detalhes" placeholder="Detalhes" required style="height: 30px;">
-          <button type="submit" style="background: green; width: 100%; font-size: 16px;">Adicionar</button>
-      </form>
-  </div>
-  </div>
+            </select>
+            <input
+              type="text"
+              name="apelido"
+              placeholder="Apelido"
+              required
+              class="add-method-input"
+            />
+            <input
+              type="text"
+              name="detalhes"
+              placeholder="Detalhes"
+              required
+              class="add-method-input"
+            />
+            <button type="submit" class="add-method-button">
+              Adicionar
+            </button>
+          </form>
+        </div>
+      </div>
 
-  <div id="secondColumn">
-    <h2>Lista de Amigos ({{amigos.length}})</h2>
+      <div id="secondColumn">
+        <h2>Lista de Amigos ({{amigos.length}})</h2>
 
-    {{#if maisde0amg}}
-      {{#each amigos}}
+        {{#if maisde0amg}}
+        {{#each amigos}}
         <div class="Game">
-          <img
-            src="/img/{{this.pfp}}.png"
-            alt="pfp"
-          />
+          <img src="/img/{{this.pfp}}.png" alt="pfp" />
           <h2>
             {{#if this.nickname}}
-              {{this.nickname}}
+            {{this.nickname}}
             {{else}}
-              {{this.nomeOriginal}}
+            {{this.nomeOriginal}}
             {{/if}}
           </h2>
-        </div>
-      {{/each}}
-    {{else}}
-      <p>Você Não possui amigos! Hora de fazer alguns!</p>
-    {{/if}}
-      <button
-        class="btn-gerenciar"
-        onclick="window.location.href='/user/amigos?id={{id}}'"
-      >
-        Gerenciar Amigos
-      </button>
-  </div>
-  
-  <div id="thirdColumn">
-    <h2>Lista de Jogos ({{totalJogos}})</h2>
-    
-    <button class="btn-gerenciar" onclick="window.location.href='/user/addGame?id={{id}}'" style="background-color: purple; margin-bottom: 15px;">
-      + Adicionar Jogo Não-PunkWinds
-    </button>
-
-    {{#if maisde0Jogos}}
-      {{#each biblioteca}}
-        <div class="Game">
-          <img src="/img/{{gameImg}}.png" alt="Capa do Jogo"/>
-          <h2>
-            {{#if this.nickname}}
-              {{this.nickname}}
-            {{else}}
-              {{gameName}}
-            {{/if}}
-          </h2>
-        </div>
-      {{/each}}
-    {{else}}
-      <p>Você Não possui nenhum Jogo da Loja!</p>
-    {{/if}}
-
-    {{#if maisde0Custom}}
-        <hr style="width: 100%; border: 1px dashed white; margin: 20px 0;">
-        <h3 style="color: white;">Jogos Adicionados por Mim</h3>
-        
-        {{#each customGames}}
-        <div class="Game" style="border-color: purple;">
-            <img src="{{this.gameImg}}" alt="Capa Custom" style="object-fit: cover;">
-            
-            <div style="display: flex; flex-direction: column; justify-content: center; width: 100%; margin-left: 10px;">
-                <h2 style="font-size: 20px;">{{this.gameName}}</h2>
-                
-                <div style="display: flex; gap: 5px; margin-top: 5px;">
-                    <form action="/user/customGame/editar" method="POST" style="margin:0; display: flex;">
-                        <input type="hidden" name="id" value="{{../id}}">
-                        <input type="hidden" name="idCustomGame" value="{{this.id}}">
-                        <input type="text" name="novoNome" placeholder="Editar nome" style="width: 100px; height: 20px; font-size: 10px;">
-                        <button type="submit" style="background: orange; font-size: 10px; padding: 2px; width: auto;">Edit</button>
-                    </form>
-
-                    <form action="/user/customGame/remover" method="POST" style="margin:0;">
-                        <input type="hidden" name="id" value="{{../id}}">
-                        <input type="hidden" name="idCustomGame" value="{{this.id}}">
-                        <button type="submit" style="background: red; font-size: 10px; padding: 2px 5px; width: auto;">X</button>
-                    </form>
-                </div>
-            </div>
         </div>
         {{/each}}
-    {{/if}}
+        {{else}}
+        <p>Você Não possui amigos! Hora de fazer alguns!</p>
+        {{/if}}
+        <button
+          class="btn-gerenciar"
+          onclick="window.location.href='/user/amigos?id={{id}}'"
+        >
+          Gerenciar Amigos
+        </button>
+      </div>
 
-    <button
-      class="btn-gerenciar"
-      onclick="window.location.href='/user/yourGamePage?id={{id}}'"
-    >
-      Gerenciar Jogos da Loja
-    </button>
-  </div>
+      <div id="thirdColumn">
+        <h2>Lista de Jogos ({{totalJogos}})</h2>
 
-</main>
+        <button
+          class="btn-gerenciar add-game-button"
+          onclick="window.location.href='/user/addGame?id={{id}}'"
+        >
+          + Adicionar Jogo Não-PunkWinds
+        </button>
 
-<script>
-  const deleteLink = document.getElementById('Verificacao'); 
-  let clickedOnce = false; 
+        {{#if maisde0Jogos}}
+        {{#each biblioteca}}
+        <div class="Game">
+          <img src="/img/{{gameImg}}.png" alt="Capa do Jogo" />
+          <h2>
+            {{#if this.nickname}}
+            {{this.nickname}}
+            {{else}}
+            {{gameName}}
+            {{/if}}
+          </h2>
+        </div>
+        {{/each}}
+        {{else}}
+        <p>Você Não possui nenhum Jogo da Loja!</p>
+        {{/if}}
 
-  deleteLink.addEventListener('click', function(event) { 
-  if (!clickedOnce) { 
-    event.preventDefault(); 
-    alert("Tem certeza? Se tiver, pressione novamente. Lembrando: Isso irá deletar TODOS os seus dados"); 
-    clickedOnce = true; 
-    deleteLink.textContent = 'CONFIRMAR DELETAR AGORA'; 
-    deleteLink.style.color = 'red';
-    deleteLink.style.fontWeight = 'bold'; 
-    setTimeout(() => { 
-        if (clickedOnce) { 
-            clickedOnce = false; 
-            deleteLink.textContent = 'Deletar conta';
-            deleteLink.style.color = ''; 
-            deleteLink.style.fontWeight = ''; 
+        {{#if maisde0Custom}}
+        <hr class="custom-game-separator" />
+        <h3 class="custom-game-title">Jogos Adicionados por Mim</h3>
+
+        {{#each customGames}}
+        <div class="Game custom-game-card">
+          <img src="{{this.gameImg}}" alt="Capa Custom" class="custom-game-img" />
+
+          <div class="custom-game-info">
+            <h2 class="custom-game-name">{{this.gameName}}</h2>
+
+            <div class="custom-game-actions">
+              <form action="/user/customGame/editar" method="POST" class="action-form edit-game-form">
+                <input type="hidden" name="id" value="{{../id}}" />
+                <input
+                  type="hidden"
+                  name="idCustomGame"
+                  value="{{this.id}}"
+                />
+                <input
+                  type="text"
+                  name="novoNome"
+                  placeholder="Editar nome"
+                  class="edit-input-sm"
+                />
+                <button type="submit" class="edit-game-button">Edit</button>
+              </form>
+
+              <form action="/user/customGame/remover" method="POST" class="action-form">
+                <input type="hidden" name="id" value="{{../id}}" />
+                <input
+                  type="hidden"
+                  name="idCustomGame"
+                  value="{{this.id}}"
+                />
+                <button type="submit" class="delete-button-sm">X</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+        {{/if}}
+
+        <button
+          class="btn-gerenciar"
+          onclick="window.location.href='/user/yourGamePage?id={{id}}'"
+        >
+          Gerenciar Jogos da Loja
+        </button>
+      </div>
+    </main>
+
+    <script>
+      const deleteLink = document.getElementById('Verificacao'); 
+      let clickedOnce = false; 
+
+      deleteLink.addEventListener('click', function(event) { 
+        if (!clickedOnce) { 
+          event.preventDefault(); 
+          alert("Tem certeza? Se tiver, pressione novamente. Lembrando: Isso irá deletar TODOS os seus dados"); 
+          clickedOnce = true; 
+          deleteLink.textContent = 'CONFIRMAR DELETAR AGORA'; 
+          deleteLink.style.color = 'red';
+          deleteLink.style.fontWeight = 'bold'; 
+          setTimeout(() => { 
+              if (clickedOnce) { 
+                  clickedOnce = false; 
+                  deleteLink.textContent = 'Deletar conta';
+                  deleteLink.style.color = ''; 
+                  deleteLink.style.fontWeight = ''; 
+              } 
+          }, 5000);
+        } else { 
         } 
-    }, 5000);
-  } else { 
-  } });
-</script>
+      });
 
+    </script>
   </body>
 </html>

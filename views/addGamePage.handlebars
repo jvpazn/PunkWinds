@@ -2,6 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Adicionar Jogo Não-Steam</title>
+    <link rel="icon" href="/img/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
       rel="stylesheet"
@@ -17,12 +18,10 @@
 
         <form action="/user/addGame/novo" method="POST" id="formAddGame">
           <input type="hidden" name="id" value="{{id}}" />
-
           <input type="hidden" name="gameImgData" id="hiddenImgData" />
 
-          <div>
-            <label style="color: white; font-size: 20px;">Nome do Jogo:</label><br
-            />
+          <div class="input-group">
+            <label class="label-default">Nome do Jogo:</label><br />
             <input
               type="text"
               name="gameName"
@@ -31,84 +30,72 @@
             />
           </div>
 
-          <div style="margin-top: 20px;">
-            <label style="color: white; font-size: 20px;">Imagem do PC:</label><br
-            />
-            <input
+          <div>
+            <label>Imagem do PC:</label><br/>
+            <input class="letters"
               type="file"
               id="fileInput"
               accept="image/*"
               required
-              style="color: white; font-size: 16px;"
+              class="input-file"
             />
           </div>
 
-          <div style="margin-top: 20px;">
-            <img
-              id="imagePreview"
-              src=""
-              style="max-width: 200px; display: none; border: 2px solid green;"
-            />
+          <div>
+            <img id="imagePreview"/>
           </div>
 
-          <button
-            type="submit"
-            id="IMPORTANTE"
-            style="margin-top: 20px;"
-          >Adicionar à Biblioteca</button>
+          <button type="submit" id="IMPORTANTE">
+            Adicionar à Biblioteca
+          </button>
         </form>
 
-        <button class="btn-gerenciar"><a
-            href="/user?id={{id}}"
-          >Cancelar</a></button>
+        <button class="btn-gerenciar">
+          <a href="/user?id={{id}}">Cancelar</a>
+        </button>
       </div>
     </div>
 
-   <script>
-    const form = document.getElementById('formAddGame');
-    const fileInput = document.getElementById('fileInput');
-    const hiddenInput = document.getElementById('hiddenImgData');
-    const preview = document.getElementById('imagePreview');
-    const btnSubmit = document.getElementById('IMPORTANTE'); // Seu botão de submit
+    <script>
+      const form = document.getElementById('formAddGame');
+      const fileInput = document.getElementById('fileInput');
+      const hiddenInput = document.getElementById('hiddenImgData');
+      const preview = document.getElementById('imagePreview');
+      const btnSubmit = document.getElementById('IMPORTANTE'); 
 
-   
-    fileInput.addEventListener('change', function(e) {
+      fileInput.addEventListener('change', function (e) {
         const file = e.target.files[0];
         if (file) {
-            
-            btnSubmit.disabled = true;
-            btnSubmit.innerText = "Processando imagem...";
-            
-            const reader = new FileReader();
-            
-            reader.onloadend = function() {
-                const base64String = reader.result;
-                
-                
-                hiddenInput.value = base64String;
-                
-             
-                preview.src = base64String;
-                preview.style.display = 'block';
-                
-                
-                btnSubmit.disabled = false;
-                btnSubmit.innerText = "Adicionar à Biblioteca";
-                
-                console.log("Imagem pronta! Tamanho:", base64String.length);
-            }
-            
-            reader.readAsDataURL(file);
-        }
-    });
+          btnSubmit.disabled = true;
+          btnSubmit.innerText = 'Processando imagem...';
 
-    
-    form.addEventListener('submit', function(e) {
-        if (!hiddenInput.value) {
-            e.preventDefault(); 
-            alert("A imagem ainda não foi processada ou não foi selecionada!");
+          const reader = new FileReader();
+
+          reader.onloadend = function () {
+            const base64String = reader.result;
+
+            hiddenInput.value = base64String;
+
+            // Mantido no JS por ser uma alteração de estado
+            preview.src = base64String;
+            preview.style.display = 'block';
+
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = 'Adicionar à Biblioteca';
+
+            console.log('Imagem pronta! Tamanho:', base64String.length);
+          };
+
+          reader.readAsDataURL(file);
         }
-    });
-</script>
+      });
+
+      form.addEventListener('submit', function (e) {
+        if (!hiddenInput.value) {
+          e.preventDefault();
+          alert('A imagem ainda não foi processada ou não foi selecionada!');
+        }
+      });
+    </script>
   </body>
 </html>
