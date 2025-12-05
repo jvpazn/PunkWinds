@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Adicionar Jogo Não-Steam</title>
+    <title>Adicionar Jogo Não-PunkWinds</title>
     <link rel="icon" href="/img/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
@@ -31,8 +31,9 @@
           </div>
 
           <div>
-            <label>Imagem do PC:</label><br/>
-            <input class="letters"
+            <label>Imagem do PC:</label><br />
+            <input
+              class="letters"
               type="file"
               id="fileInput"
               accept="image/*"
@@ -42,7 +43,7 @@
           </div>
 
           <div>
-            <img id="imagePreview"/>
+            <img id="imagePreview" />
           </div>
 
           <button type="submit" id="IMPORTANTE">
@@ -57,45 +58,41 @@
     </div>
 
     <script>
-      const form = document.getElementById('formAddGame');
-      const fileInput = document.getElementById('fileInput');
-      const hiddenInput = document.getElementById('hiddenImgData');
-      const preview = document.getElementById('imagePreview');
-      const btnSubmit = document.getElementById('IMPORTANTE'); 
+        const form = document.getElementById('formAddGame');
+        const fileInput = document.getElementById('fileInput');
+        const hiddenInput = document.getElementById('hiddenImgData');
+        const preview = document.getElementById('imagePreview');
+        const btnSubmit = document.getElementById('IMPORTANTE');
 
-      fileInput.addEventListener('change', function (e) {
-        const file = e.target.files[0];
-        if (file) {
-          btnSubmit.disabled = true;
-          btnSubmit.innerText = 'Processando imagem...';
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
 
-          const reader = new FileReader();
+            if (file) {
+                btnSubmit.disabled = true;
+                btnSubmit.innerText = 'Processando imagem...';
 
-          reader.onloadend = function () {
-            const base64String = reader.result;
+                const reader = new FileReader();
 
-            hiddenInput.value = base64String;
+                reader.onloadend = function() {
+                    const base64String = reader.result;
+                    hiddenInput.value = base64String;
+                    preview.src = base64String;
+                    preview.style.display = 'block';
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerText = 'Adicionar à Biblioteca';
+                    console.log('Imagem pronta! Tamanho:', base64String.length);
+                };
 
-            // Mantido no JS por ser uma alteração de estado
-            preview.src = base64String;
-            preview.style.display = 'block';
+                reader.readAsDataURL(file);
+            }
+        });
 
-            btnSubmit.disabled = false;
-            btnSubmit.innerText = 'Adicionar à Biblioteca';
-
-            console.log('Imagem pronta! Tamanho:', base64String.length);
-          };
-
-          reader.readAsDataURL(file);
-        }
-      });
-
-      form.addEventListener('submit', function (e) {
-        if (!hiddenInput.value) {
-          e.preventDefault();
-          alert('A imagem ainda não foi processada ou não foi selecionada!');
-        }
-      });
+        form.addEventListener('submit', function(e) {
+            if (!hiddenInput.value) {
+                e.preventDefault();
+                alert('A imagem ainda não foi processada ou não foi selecionada!');
+            }
+        });
     </script>
   </body>
 </html>
