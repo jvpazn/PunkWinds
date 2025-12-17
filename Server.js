@@ -11,6 +11,7 @@ const {
   Comment,
   PaymentMethod,
   CustomGame,
+  Review,
   sequelize,
 } = require("./models/Associations");
 const { Op } = require("sequelize");
@@ -38,12 +39,31 @@ async function populateDatabase() {
           gameImg: g.gameImg,
         }))
       );
-
       console.log("Jogos populados com sucesso.");
     }
   } catch (error) {
     console.error("Erro ao popular o banco de dados:", error);
   }
+}
+
+
+function calcularMediaReviews(reviews) {
+  if (!reviews || reviews.length === 0) return "Sem Avaliações";
+
+  let bom = 0;
+  let mediano = 0;
+  let ruim = 0;
+
+  reviews.forEach((review) => {
+    if (review.rating === "Bom") bom++;
+    if (review.rating === "Mediano") mediano++;
+    if (review.rating === "Ruim") ruim++;
+  });
+
+  if (ruim > bom && ruim > mediano) return "Ruim";
+  if (bom > ruim && bom > mediano) return "Bom";
+  
+  return "Mediano";
 }
 
 app.get("/", async (req, res) => {
@@ -83,13 +103,10 @@ app.post("/cadastro/novo", async (req, res) => {
     }
 
     const newUser = await User.create({ nome, senha, idade: idadeNum, pfp });
-
     res.redirect(`/?id=${newUser.id}`);
   } catch (error) {
     console.error("Erro ao cadastrar novo usuário:", error);
-    res
-      .status(500)
-      .render("cadastroPage", { erro: "Erro ao tentar cadastrar." });
+    res.status(500).render("cadastroPage", { erro: "Erro ao tentar cadastrar." });
   }
 });
 
@@ -265,18 +282,11 @@ app.post("/user/amigos/adicionar", async (req, res) => {
 
 app.post("/user/amigos/apelido", async (req, res) => {
   const { id, idAmigo, nickname } = req.body;
-
   try {
     await Friendship.update(
       { nickname },
-      {
-        where: {
-          UserId: Number(id),
-          FriendId: Number(idAmigo),
-        },
-      }
+      { where: { UserId: Number(id), FriendId: Number(idAmigo) } }
     );
-
     res.redirect(`/user/amigos?id=${id}`);
   } catch (error) {
     console.error("Erro ao definir apelido de amigo:", error);
@@ -291,9 +301,7 @@ app.post("/user/amigos/remover", async (req, res) => {
 
   try {
     await Friendship.destroy({ where: { UserId: userId, FriendId: friendId } });
-
     await Friendship.destroy({ where: { UserId: friendId, FriendId: userId } });
-
     res.redirect(`/user/amigos?id=${id}`);
   } catch (error) {
     console.error("Erro ao remover amigo:", error);
@@ -305,7 +313,6 @@ app.get("/user/atualizar", async (req, res) => {
   const { id } = req.query;
   try {
     const user = await User.findByPk(Number(id));
-
     if (user) {
       res.render("atualizarPage", {
         id: user.id,
@@ -360,7 +367,6 @@ app.get("/user/deletar", async (req, res) => {
   const { id } = req.query;
   try {
     const deletedCount = await User.destroy({ where: { id: Number(id) } });
-
     if (deletedCount > 0) {
       res.redirect("/login");
     } else {
@@ -381,6 +387,7 @@ app.get("/game", async (req, res) => {
           model: Comment,
           include: [{ model: User, attributes: ["nome", "pfp"] }],
         },
+        { model: Review }
       ],
     });
 
@@ -395,6 +402,8 @@ app.get("/game", async (req, res) => {
         eDono: user ? c.UserId === user.id : false,
       }));
 
+      const mediaCalculada = calcularMediaReviews(jogo.Reviews);
+
       res.render("gamePage", {
         idgames: jogo.id,
         gameName: jogo.gameName,
@@ -403,6 +412,7 @@ app.get("/game", async (req, res) => {
         id: id,
         nome: user ? user.nome : null,
         comentarios: comentariosFormatados,
+        mediaReviews: mediaCalculada 
       });
     } else {
       res.redirect(`/?id=${id}`);
@@ -412,6 +422,105 @@ app.get("/game", async (req, res) => {
     res.status(500).send("Erro interno do servidor.");
   }
 });
+
+
+app.get("/game/reviews", async (req, res) => {
+    const { idgames, id } = req.query;
+    const userId = Number(id);
+    
+    try {
+        const jogo = await Game.findByPk(Number(idgames), {
+            include: [
+                {
+                    model: Review,
+                    include: [{ model: User, attributes: ["nome", "pfp"] }]
+                }
+            ]
+        });
+
+        if (!jogo) return res.redirect("/");
+
+        const reviewsFormatadas = jogo.Reviews.map(r => ({
+            id: r.id, 
+            rating: r.rating,
+            nomeAutor: r.User.nome,
+            pfpAutor: r.User.pfp,
+            isOwner: r.UserId === userId 
+        }));
+
+        res.render("reviewPage", {
+            idgames: jogo.id,
+            gameName: jogo.gameName,
+            gameImg: jogo.gameImg,
+            id: userId,
+            reviews: reviewsFormatadas
+        });
+
+    } catch (error) {
+        console.error("Erro na rota /game/reviews:", error);
+        res.redirect(`/game?idgames=${idgames}&id=${id}`);
+    }
+});
+
+app.post("/game/reviews/add", async (req, res) => {
+    const { id, idgames, rating } = req.body;
+
+    try {
+        const [review, created] = await Review.findOrCreate({
+            where: { UserId: Number(id), GameId: Number(idgames) },
+            defaults: { rating: rating }
+        });
+
+        if (!created) {
+            review.rating = rating;
+            await review.save();
+        }
+
+        res.redirect(`/game/reviews?idgames=${idgames}&id=${id}`);
+    } catch (error) {
+        console.error("Erro ao adicionar review:", error);
+        res.redirect(`/game/reviews?idgames=${idgames}&id=${id}`);
+    }
+});
+
+
+app.post("/game/reviews/deletar", async (req, res) => {
+    const { id, idgames } = req.body; 
+    try{
+        await Review.destroy({
+            where: {
+                UserId: Number(id),
+                GameId: Number(idgames)
+            }
+        });
+
+        res.redirect(`/game/reviews?idgames=${idgames}&id=${id}`);
+    } catch (error) {
+        console.error("Erro ao deletar review:", error);
+        res.redirect(`/game/reviews?idgames=${idgames}&id=${id}`);
+    }
+});
+
+
+app.post("/game/reviews/editar", async (req, res) => {
+    const { id, idgames, novoRating } = req.body;
+    try {
+        await Review.update(
+            { rating: novoRating },
+            {
+                where: {
+                    UserId: Number(id),
+                    GameId: Number(idgames)
+                }
+            }
+        );
+        res.redirect(`/game/reviews?idgames=${idgames}&id=${id}`);
+    } catch (error) {
+        console.error("Erro ao editar review:", error);
+        res.redirect(`/game/reviews?idgames=${idgames}&id=${id}`);
+    }
+});
+
 
 app.post("/game/comprar", async (req, res) => {
   const { idgames, id } = req.body;
@@ -701,15 +810,6 @@ app.get("/user/addGame", (req, res) => {
 
 app.post("/user/addGame/novo", async (req, res) => {
   const { id, gameName, gameImgData } = req.body;
-
-  console.log("=== DEBUG UPLOAD ===");
-  console.log("Nome do Jogo:", gameName);
-  if (gameImgData) {
-      console.log("Tamanho da Imagem (caracteres):", gameImgData.length);
-      console.log("Início da string:", gameImgData.substring(0, 50));
-  } else {
-      console.log("ERRO: gameImgData está undefined ou vazio!");
-  }
 
   try {
     await CustomGame.create({

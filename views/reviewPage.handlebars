@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <title>Reviews - {{gameName}}</title>
+    <link rel="icon" href="/img/favicon.png">
+    <link rel="Stylesheet" href="/css/gamePage.css"> 
+</head>
+<body>
+    <main id="Content">
+        <h1>Avaliações de {{gameName}}</h1>
+        <img src="/img/{{gameImg}}.png" class="game-image" style="max-width: 200px;">
+        
+        <br>
+        <button id="botao" class="back-button">
+            <a href="/game?idgames={{idgames}}&id={{id}}">Voltar para o Jogo</a>
+        </button>
+
+        <hr class="content-separator">
+
+
+        {{#if id}}
+        <div class="add-review-section">
+            <h3>Deixe sua Avaliação</h3>
+            <form action="/game/reviews/add" method="POST">
+                <input type="hidden" name="id" value="{{id}}">
+                <input type="hidden" name="idgames" value="{{idgames}}">
+                
+                <label for="rating">Escolha uma nota:</label>
+                <select name="rating" id="rating" required>
+                    <option value="" disabled selected>Selecione...</option>
+                    <option value="Bom">Bom</option>
+                    <option value="Mediano">Mediano</option>
+                    <option value="Ruim">Ruim</option>
+                </select>
+
+                <button type="submit">Enviar Avaliação</button>
+            </form>
+        </div>
+        {{else}}
+            <p>Faça login para avaliar este jogo.</p>
+        {{/if}}
+
+        <hr class="content-separator">
+
+
+        <div class="reviews-list">
+            <h3>O que os jogadores estão dizendo:</h3>
+            
+            {{#each reviews}}
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="/img/{{this.pfpAutor}}.png" alt="PFP" class="comment-pfp" width="50">
+                    <strong>{{this.nomeAutor}}</strong> avaliou como:
+                </div>
+                <p class="review-rating">
+                    <strong>{{this.rating}}</strong>
+                </p>
+
+                {{#if this.isOwner}}
+                <div class="review-actions">
+
+                    <form action="/game/reviews/deletar" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="{{../id}}">
+                        <input type="hidden" name="idgames" value="{{../idgames}}">
+   
+                        <button type="submit" class="delete-button">Deletar</button>
+                    </form>
+
+  
+                    <form action="/game/reviews/editar" method="POST" style="margin-top: 10px;">
+                         <input type="hidden" name="id" value="{{../id}}">
+                        <input type="hidden" name="idgames" value="{{../idgames}}">
+                        
+                        <label>Mudar nota:</label>
+                        <select name="novoRating" required>
+                             <option value="" disabled selected>Alterar...</option>
+                             <option value="Bom">Bom</option>
+                             <option value="Mediano">Mediano</option>
+                             <option value="Ruim">Ruim</option>
+                        </select>
+                        <button type="submit" class="edit-button">Atualizar</button>
+                    </form>
+                </div>
+                {{/if}}
+            </div>
+            <hr>
+            {{else}}
+                <p>Este jogo ainda não tem avaliações. Seja o primeiro!</p>
+            {{/each}}
+        </div>
+
+    </main>
+</body>
+</html>

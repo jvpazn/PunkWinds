@@ -19,6 +19,12 @@
       <p class="game-price paid">R$ {{gamePrice}}</p>
       {{/unless}}
 
+      <div class="review-summary-container">
+        <a href="/game/reviews?idgames={{idgames}}&id={{id}}" class="review-button">
+           Avaliação: {{mediaReviews}}
+        </a>
+      </div>
+
       <form action="/game/comprar" method="POST" class="buy-form">
         <input type="hidden" name="idgames" value="{{idgames}}" />
         <input type="hidden" name="id" value="{{id}}" />

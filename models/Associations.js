@@ -5,6 +5,7 @@ const Game = require("./Game");
 const Comment = require("./Comment");
 const PaymentMethod = require("./PaymentMethod");
 const CustomGame = require("./CustomGame");
+const Review = require("./Review");
 
 const UserGame = sequelize.define(
   "UserGame",
@@ -53,6 +54,12 @@ PaymentMethod.belongsTo(User, { foreignKey: "UserId" });
 User.hasMany(CustomGame, { foreignKey: "UserId" });
 CustomGame.belongsTo(User, { foreignKey: "UserId" });
 
+User.hasMany(Review, { foreignKey: "UserId" });
+Review.belongsTo(User, { foreignKey: "UserId" });
+
+Game.hasMany(Review, { foreignKey: "GameId" }); 
+Review.belongsTo(Game, { foreignKey: "GameId" });
+
 module.exports = {
   User,
   Game,
@@ -61,5 +68,6 @@ module.exports = {
   Comment,
   PaymentMethod,
   CustomGame,
+  Review,
   sequelize,
 };
