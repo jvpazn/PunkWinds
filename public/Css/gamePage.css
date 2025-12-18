@@ -1,19 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: #4a0867;
     margin: 0;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
     overflow-x: hidden;
-    color: white; 
+    color: white;
     font-family: 'Sedgwick Ave Display', cursive;
+}
+
+#Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #750da2;
+    width: fit-content;
+    max-width: 90vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin: 40px auto; 
 }
 
 h1, h2 {
     color: white;
-    font-family: 'Sedgwick Ave Display', cursive;
-    margin: 2px;
+    margin: 5px 0;
 }
 
 h1 {
@@ -21,7 +33,7 @@ h1 {
 }
 
 h2 {
-    font-size: 30px; 
+    font-size: 30px;
 }
 
 p {
@@ -29,152 +41,28 @@ p {
     font-size: 24px;
 }
 
-#Content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-self: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #750da2;
-    width: fit-content;
-    max-width: 90vw;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.main-content {
-    margin-top: 50px;
-}
-
-img { 
+img {
     width: 600px;
+    max-width: 100%;
     height: auto;
     margin-bottom: 15px;
-    border: 2px solid green; 
+    border: 2px solid green;
 }
 
-.checkout-summary {
-    border: 2px solid white;
-    padding: 20px;
-    margin-bottom: 20px;
-    text-align: center;
+button {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.checkout-summary .game-img {
-    width: 200px; 
-    height: auto;
-    margin-bottom: 10px; 
-    border: none;
-}
-
-.price-total {
-    color: green;
-    font-size: 30px;
-}
-
-.payment-container {
-    width: 100%;
-    max-width: 600px;
-}
-
-form {
+.buy-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin-top: 20px;
+    gap: 15px;
 }
 
-form div {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 80%; 
-    max-width: 400px;
-}
-
-form label {
-    margin-bottom: 5px;
-    font-size: 18px;
-}
-
-form input {
-    width: 100%; 
-    height: 40px;
-    font-size: 18px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    box-sizing: border-box; 
-}
-
-form select {
-    width: 100%; 
-    height: 40px;
-    font-size: 18px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    box-sizing: border-box; 
-}
-
-.add-method-form {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    border-radius: 10px;
-}
-
-.save-method-button {
-    background-color: orange;
-    width: 100%;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 24px;
-    font-family: 'Sedgwick Ave Display', cursive;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-    max-width: 400px;
-    align-self: center;
-}
-
-#buyButton {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 24px;
-    font-family: 'Sedgwick Ave Display', cursive;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 80%;
-    max-width: 400px;
-}
-
-#buyButton:hover {
-    background-color: darkgreen;
-}
-
-
-#botao {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 24px;
-    font-family: 'Sedgwick Ave Display', cursive;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 40%;
-    max-width: 400px;
-}
-
+#buyButton,
+#botao,
 #botao-maior {
     background-color: green;
     color: white;
@@ -183,38 +71,27 @@ form select {
     font-size: 24px;
     font-family: 'Sedgwick Ave Display', cursive;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 80%;
     max-width: 400px;
 }
 
-#botao:hover {
-    background-color: darkgreen;
+#botao {
+    width: 40%;
 }
 
+#buyButton:hover,
+#botao:hover,
 #botao-maior:hover {
     background-color: darkgreen;
 }
 
 .cancel-button {
     background: gray;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 24px;
-    font-family: 'Sedgwick Ave Display', cursive;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 a {
     text-decoration: none;
     color: white;
-}
-
-.payment-required {
-    margin: 20px 0;
 }
 
 .content-separator {
@@ -224,54 +101,13 @@ a {
     margin: 20px 0;
 }
 
-.separator {
-    margin: 20px 0;
-}
-
-.method-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.method-label {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.method-radio {
-    width: auto;
-    margin-right: 10px;
-}
-
-.remove-button {
-    margin-left: auto;
-    background: red;
-    font-size: 10px;
-    width: auto;
-    padding: 2px 5px;
-    border: none;
-    color: white;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.remove-form {
-    display: none;
-}
-
 #commentSection {
-    width: 80%;
+    width: 100%;
+    max-width: 800px;
     background-color: rgba(0, 0, 0, 0.5);
-    padding: 20px; 
-    border-radius: 10px; 
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
 .comment-form {
@@ -279,47 +115,43 @@ a {
 }
 
 .comment-input-group {
-    display: flex; 
-    gap: 10px; 
-    width: 100%; 
+    display: flex;
+    gap: 10px;
 }
 
 .comment-input {
-    flex-grow: 1; 
-    height: 40px; 
+    flex: 1;
+    height: 40px;
     font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
 }
 
 .comment-send-button {
-    width: auto; 
-    background-color: #4a0867; 
-    padding: 10px 15px; 
+    background-color: #4a0867;
+    padding: 10px 15px;
     color: white;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
 }
 
 .comment-card {
-    border-bottom: 1px solid white; 
-    padding: 10px; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start;
+    border-bottom: 1px solid white;
+    padding: 10px 0;
     margin-bottom: 10px;
 }
 
 .comment-header {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     gap: 10px;
 }
 
 .comment-pfp {
-    width: 40px; 
-    height: 40px; 
-    border-radius: 50%; 
-    margin: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     border: 1px solid white;
 }
 
@@ -330,13 +162,12 @@ a {
 
 .comment-actions {
     margin-left: 50px;
-    display: flex; 
+    display: flex;
     gap: 10px;
 }
 
 .action-form {
     margin: 0;
-    width: auto;
 }
 
 .edit-form {
@@ -351,7 +182,6 @@ a {
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .edit-button {
@@ -361,10 +191,12 @@ a {
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .edit-input {
     height: 30px;
     font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: none;
 }
